@@ -279,11 +279,37 @@ var render = function() {
       _c(
         "v-uni-view",
         {
-          staticClass: _vm._$g(8, "sc"),
-          staticStyle: { height: "1000px" },
+          staticStyle: { height: "1000px", "background-color": "#d7ebfd" },
           attrs: { _i: 8 }
         },
-        [_vm._v("123")]
+        [
+          _c(
+            "v-uni-view",
+            { attrs: { _i: 9 } },
+            [
+              _c(
+                "v-uni-view",
+                {
+                  staticClass: _vm._$g(10, "sc"),
+                  staticStyle: { width: "90%" },
+                  attrs: { _i: 10 }
+                },
+                [
+                  _c("v-uni-text", {
+                    staticClass: _vm._$g(11, "sc"),
+                    attrs: { _i: 11 }
+                  }),
+                  _c("v-uni-input", {
+                    attrs: { placeholder: "搜索网盘文件", _i: 12 }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
       )
     ],
     1

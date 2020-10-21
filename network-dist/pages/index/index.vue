@@ -11,8 +11,13 @@
 					<text class="iconfont icon-gengduo"></text>
 				</view>
 			</template>
-		</nav-bar>
-		<view class="bg-info" style="height: 1000px;">123</view>
+		</nav-bar>	
+		<view class="pt-2" style="height: 1000px;background-color: #d7ebfd;">
+				<view class=" flex m-auto rounded-circle bg-hover-light" style="width: 90%;">
+					<text class="ml-4 iconfont icon-sousuo pr-2"></text>
+					<input placeholder="搜索网盘文件" />
+				</view>
+		</view>
 	</view>
 </template>
 
@@ -32,7 +37,7 @@
 		},
 		onLoad() {}
 	}
-	
+
 	/*
 	<template>
 		<view>
