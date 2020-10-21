@@ -15,7 +15,7 @@
 		<view class="pt-2" style="height: 1000px;background-color: #d7ebfd;">
 				<view class=" flex m-auto rounded-circle bg-hover-light" style="width: 90%;">
 					<text class="ml-4 iconfont icon-sousuo pr-2"></text>
-					<input placeholder="搜索网盘文件" />
+					<input placeholder="搜索网盘文件" />	
 				</view>
 		</view>
 	</view>
@@ -35,7 +35,15 @@
 
 			}
 		},
-		onLoad() {}
+		onLoad() {
+			uni.request({
+				url:'http://localhost:7001/list',
+				method:'GET',
+				success:res=>{
+					console.log(res.data.data)
+				}
+			})
+		}
 	}
 
 	/*
