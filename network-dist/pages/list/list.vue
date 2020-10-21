@@ -10,7 +10,7 @@
 	export default {
 		data() {
 			return {
-				title: 'index'
+				title: 'my'
 			}
 		},
 		onLoad() {
