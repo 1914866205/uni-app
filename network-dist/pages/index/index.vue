@@ -2,14 +2,21 @@
 	<view style="color:#0056B3">
 		<!-- 自定义导航栏 -->
 		<nav-bar>
-			<text slot="left" class="font-md ml-3">首页</text>
-			<template slot="right">
-				<view style="width: 60rpx;height: 60rpx;" class="flex align-center justify-center bg-icon rounded-circle mr-3">
-					<text class="iconfont icon-zengjia"></text>
-				</view>
-				<view style="width: 60rpx;height: 60rpx;" class="flex align-center justify-center bg-icon rounded-circle mr-3">
-					<text class="iconfont icon-gengduo"></text>
-				</view>
+			<template v-if="checkCount===0">
+				<text slot="left" class="font-md ml-3">首页</text>
+				<template slot="right">
+					<view style="width: 60rpx;height: 60rpx;" class="flex align-center justify-center bg-icon rounded-circle mr-3">
+						<text class="iconfont icon-zengjia"></text>
+					</view>
+					<view style="width: 60rpx;height: 60rpx;" class="flex align-center justify-center bg-icon rounded-circle mr-3">
+						<text class="iconfont icon-gengduo"></text>
+					</view>
+				</template>
+			</template>
+			<template v-else>
+				<view slot="left" class="font-md ml-3 text-primary">取消</view>
+				<text class="font-md font-weight-bold">已选中{{checkCount}}个</text>
+				<view slot="right" class="font-md mr-3 text-primary">全选</view>
 			</template>
 		</nav-bar>
 		<view class="pt-2" style="height: 1000px;">
@@ -63,7 +70,7 @@
 			checked: false
 		}
 	]
-	const list= [{
+	const list = [{
 			type: 'dir',
 			name: '我的笔记',
 			create_time: '2020-10-21 08:00',
@@ -111,12 +118,6 @@
 			item: Object,
 			index: [Number, String]
 		},
-		comments: {
-			iconClass() {
-				let item = icons[this.item.type];
-				return `${item.icon} ${item.color}`;
-			}
-		},
 		onLoad() {
 			// this.list = files;
 			this.list = list;
@@ -125,6 +126,16 @@
 			select(e) {
 				//接收到子组件传递过来的索引选中状态，将对应的list中的数据更新
 				this.list[e.index].checked = e.value
+			}
+		},
+		computed: {
+			//选中列表
+			checkList() {
+				return this.list.filter(item => item.checked);
+			},
+			//选中数量
+			checkCount() {
+				return this.checkList.length;
 			}
 		}
 	}
