@@ -19,18 +19,33 @@
 				<view slot="right" class="font-md mr-3 text-primary" @click="handleCheckAll(true)">全选</view>
 			</template>
 		</nav-bar>
-		<view class="
-				 pt-2" style="height: 1000px;">
-					<view class=" flex m-auto rounded-circle bg-hover-light" style="width: 90%;">
-						<text class="ml-4 iconfont icon-sousuo pr-2"></text>
-						<input placeholder="搜索网盘文件" />
-					</view>
-					<!-- 	<block v-for="(item,index) in list" :key="index">
+		<view class="pt-2" style="height: 1000px;">
+			<view class=" flex m-auto rounded-circle bg-hover-light" style="width: 90%;">
+				<text class="ml-4 iconfont icon-sousuo pr-2"></text>
+				<input placeholder="搜索网盘文件" />
+			</view>
+			<!-- 	<block v-for="(item,index) in list" :key="index">
 				<file-folder-list :item="item" :index="index"></file-folder-list>
 			</block> -->
-					<!-- 列表 -->
-					<f-list v-for="(item,index) in list" :key="index" :item="item" :index="index" @select="select"></f-list>
+			<!-- 列表 -->
+			<f-list v-for="(item,index) in list" :key="index" :item="item" :index="index" @select="select"></f-list>
+		</view>
+		<!-- 底部操作条 -->
+		<!-- 选择更个数大于0才会出现这个操作条 -->
+		<view v-if="checkCount>0">
+			<!-- 这里要留一定的高度，因为底部操作条需要被固定在底部，并空出底部tabbar高度的地方 -->
+			<view style="height: 115rpx;"></view>
+			<!-- 操作条容器的样式，高度，颜色，固定在底部，垂直方向拉升效果 -->
+			<view style="height: 115rpx;" class="flex align-stretch bg-primary text-white fixed-bottom">
+				<!-- 根据元素个数等分容器，所以要么四等分，要么二等分，
+			行高的修改可以让图标和文字之间的距离变的合理，点击还会变色 :hover-class-->
+				<view class="flex-1 flex flex-column align-center justify-center" style="line-height: 1.5;" v-for="(item,index) in actions"
+				 :key="index" hover-class="bg-hover-primary">
+					<text class="iconfont" :class="item.icon"></text>
+					{{item.name}}
 				</view>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -143,49 +158,74 @@
 			//选中数量
 			checkCount() {
 				return this.checkList.length;
+			},
+			//操作菜单
+			actions() {
+				if (this.checkCount > 1) {
+					return [{
+						icon: "icon-xiazai",
+						name: "下载"
+					}, {
+						icon: "icon-shanchu",
+						name: "删除",
+					}]
+				}
+				return [{
+					icon: "icon-xiazai",
+					name: "下载"
+				}, {
+					icon: "icon-fenxiang-1",
+					name: "分享"
+				}, {
+					icon: "icon-shanchu",
+					name: "删除",
+				}, {
+					icon: "icon-chongmingming",
+					name: "重命名",
+				}]
 			}
 		}
 	}
 
 	/*
-	<template>
-		<view>
-		<!-- 	uni.request({
-				url: 'http://localhost:7001/list',
-				method: 'GET',
-				success: res => {
-					console.log(res.data.data)
-				}
-			}) -->
-			
-			<!--  自定义导航栏 -->
+		<template>
 			<view>
-				<!-- 驼峰式自动转换为中划线式 -->
-				<!-- 顶部 -->
-				<uni-status-bar>
-					<!-- 此处不为rpx -->
-					<view style="height: 44px;" class="flex border-bottom align-center">
-						<view class="flex-1 flex">
-							<!-- ml  margin left 32 -->
-							<text class="font-md ml-3">首页</text>
-						</view>
-						<view class="flex-1 flex justify-center"></view>
-						<view class="flex-1 flex justify-end">
-							<view style="width: 60rpx;height: 60rpx;" class="flex align-center justify-center bg-light rounded-circle mr-3">
-								<text class="iconfont icon-zengjia"></text>
+			<!-- 	uni.request({
+					url: 'http://localhost:7001/list',
+					method: 'GET',
+					success: res => {
+						console.log(res.data.data)
+					}
+				}) -->
+				
+				<!--  自定义导航栏 -->
+				<view>
+					<!-- 驼峰式自动转换为中划线式 -->
+					<!-- 顶部 -->
+					<uni-status-bar>
+						<!-- 此处不为rpx -->
+						<view style="height: 44px;" class="flex border-bottom align-center">
+							<view class="flex-1 flex">
+								<!-- ml  margin left 32 -->
+								<text class="font-md ml-3">首页</text>
 							</view>
-							<view style="width: 60rpx;height: 60rpx;" class="flex align-center justify-center bg-light rounded-circle mr-3">
-								<text class="iconfont icon-gengduo"></text>
+							<view class="flex-1 flex justify-center"></view>
+							<view class="flex-1 flex justify-end">
+								<view style="width: 60rpx;height: 60rpx;" class="flex align-center justify-center bg-light rounded-circle mr-3">
+									<text class="iconfont icon-zengjia"></text>
+								</view>
+								<view style="width: 60rpx;height: 60rpx;" class="flex align-center justify-center bg-light rounded-circle mr-3">
+									<text class="iconfont icon-gengduo"></text>
+								</view>
 							</view>
 						</view>
-					</view>
-				</uni-status-bar>
-			</view> 
-		</view>
+					</uni-status-bar>
+				</view> 
+			</view>
 	
-	</template>
+		</template>
 	
-	*/
+		*/
 </script>
 
 <style>
