@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view style="color:#0056B3">
 		<!-- 自定义导航栏 -->
 		<nav-bar>
 			<text slot="left" class="font-md ml-3">首页</text>
@@ -11,12 +11,15 @@
 					<text class="iconfont icon-gengduo"></text>
 				</view>
 			</template>
-		</nav-bar>	
-		<view class="pt-2" style="height: 1000px;background-color: #d7ebfd;">
-				<view class=" flex m-auto rounded-circle bg-hover-light" style="width: 90%;">
-					<text class="ml-4 iconfont icon-sousuo pr-2"></text>
-					<input placeholder="搜索网盘文件" />	
-				</view>
+		</nav-bar>
+		<view class="pt-2" style="height: 1000px;">
+			<view class=" flex m-auto rounded-circle bg-hover-light" style="width: 90%;">
+				<text class="ml-4 iconfont icon-sousuo pr-2"></text>
+				<input placeholder="搜索网盘文件" />
+			</view>
+			<block v-for="(item,index) in list" :key="index">
+				<file-folder-list :item="item" :index="index"></file-folder-list>
+			</block>
 		</view>
 	</view>
 </template>
@@ -25,30 +28,65 @@
 <script>
 	// import uniStatusBar from '@/components/uni-ui/uni-status-bar/uni-status-bar.vue'
 	import navBar from '@/components/common/nav-bar.vue'
+	import fileFolderList from '@/components/list/flieFolderList.vue'
+	const files = [{
+			image: '/static/icons/folder_48px.png',
+			filename: '我的笔记',
+			time: 1603333049,
+			checked: false
+		},
+		{
+			image: '/static/icons/image_48px.png',
+			filename: '风景.jpg',
+			time: 160333049,
+			checked: false
+		},
+		{
+			image: '/static/icons/video_file_48px.png',
+			filename: 'uniapp实战教程.mp4',
+			time: 15976927,
+			checked: false
+		},
+		{
+			image: '/static/icons/notepad_48px.png',
+			filename: '记事本.txt',
+			time: 1540176927,
+			checked: false
+		},
+		{
+			image: '/static/icons/zip_48px.png',
+			filename: '压缩包.rar',
+			time: 1403373639,
+			checked: false
+		}
+	]
 	export default {
 		components: {
 			// uniStatusBar
-			navBar
+			navBar,
+			fileFolderList,
 		},
 		data() {
 			return {
-
+				list: []
 			}
 		},
 		onLoad() {
-			uni.request({
-				url:'http://localhost:7001/list',
-				method:'GET',
-				success:res=>{
-					console.log(res.data.data)
-				}
-			})
+			this.list = files;
 		}
 	}
 
 	/*
 	<template>
 		<view>
+		<!-- 	uni.request({
+				url: 'http://localhost:7001/list',
+				method: 'GET',
+				success: res => {
+					console.log(res.data.data)
+				}
+			}) -->
+			
 			<!--  自定义导航栏 -->
 			<view>
 				<!-- 驼峰式自动转换为中划线式 -->

@@ -12,7 +12,7 @@
 						"float": "left",
 						"fontSize": "20px",
 						"fontSrc": "/static/iconfont.ttf",
-						"text": "\ue611"
+						"text": "\ue611"	
 					}],
 					//搜索框
 					"searchInput": [{
