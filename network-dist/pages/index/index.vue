@@ -17,9 +17,11 @@
 				<text class="ml-4 iconfont icon-sousuo pr-2"></text>
 				<input placeholder="搜索网盘文件" />
 			</view>
-			<block v-for="(item,index) in list" :key="index">
+			<!-- 	<block v-for="(item,index) in list" :key="index">
 				<file-folder-list :item="item" :index="index"></file-folder-list>
-			</block>
+			</block> -->
+			<!-- 列表 -->
+			<f-list v-for="(item,index) in list" :key="index" :item="item" :index="index" @select="select"></f-list>
 		</view>
 	</view>
 </template>
@@ -29,6 +31,7 @@
 	// import uniStatusBar from '@/components/uni-ui/uni-status-bar/uni-status-bar.vue'
 	import navBar from '@/components/common/nav-bar.vue'
 	import fileFolderList from '@/components/list/flieFolderList.vue'
+	import fList from '@/components/common/f-list.vue'
 	const files = [{
 			image: '/static/icons/folder_48px.png',
 			filename: '我的笔记',
@@ -60,19 +63,69 @@
 			checked: false
 		}
 	]
+	const list= [{
+			type: 'dir',
+			name: '我的笔记',
+			create_time: '2020-10-21 08:00',
+			checked: false
+		},
+		{
+			type: 'image',
+			name: '风景.jpg',
+			create_time: '2020-10-21 08:00',
+			checked: false
+		},
+		{
+			type: 'video',
+			name: 'uniapp实战教程.mp4',
+			create_time: '2020-10-21 08:00',
+			checked: false
+		},
+		{
+			type: 'text',
+			name: '记事本.txt',
+			create_time: '2020-10-21 08:00',
+			checked: false
+		},
+		{
+			type: 'none',
+			name: '压缩包.rar',
+			create_time: '2020-10-21 08:00',
+			checked: false
+		}
+	]
+
 	export default {
 		components: {
 			// uniStatusBar
 			navBar,
 			fileFolderList,
+			fList
 		},
 		data() {
 			return {
 				list: []
 			}
 		},
+		props: {
+			item: Object,
+			index: [Number, String]
+		},
+		comments: {
+			iconClass() {
+				let item = icons[this.item.type];
+				return `${item.icon} ${item.color}`;
+			}
+		},
 		onLoad() {
-			this.list = files;
+			// this.list = files;
+			this.list = list;
+		},
+		methods: {
+			select(e) {
+				//接收到子组件传递过来的索引选中状态，将对应的list中的数据更新
+				this.list[e.index].checked = e.value
+			}
 		}
 	}
 
