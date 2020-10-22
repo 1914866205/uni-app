@@ -180,7 +180,7 @@
 					icon: "icon-shanchu",
 					name: "删除",
 				}, {
-					icon: "icon-chongmingming",
+					icon		: "icon-chongmingming",
 					name: "重命名",
 				}]
 			}
