@@ -282,6 +282,11 @@ var render = function() {
                   {
                     staticClass: _vm._$g(10, "sc"),
                     attrs: { slot: "left", _i: 10 },
+                    on: {
+                      click: function($event) {
+                        return _vm.$handleViewEvent($event)
+                      }
+                    },
                     slot: "left"
                   },
                   [_vm._v("取消")]
@@ -296,6 +301,11 @@ var render = function() {
                   {
                     staticClass: _vm._$g(12, "sc"),
                     attrs: { slot: "right", _i: 12 },
+                    on: {
+                      click: function($event) {
+                        return _vm.$handleViewEvent($event)
+                      }
+                    },
                     slot: "right"
                   },
                   [_vm._v("全选")]

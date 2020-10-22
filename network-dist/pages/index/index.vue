@@ -14,22 +14,23 @@
 				</template>
 			</template>
 			<template v-else>
-				<view slot="left" class="font-md ml-3 text-primary">取消</view>
+				<view slot="left" class="font-md ml-3 text-primary" @click="handleCheckAll(false)">取消</view>
 				<text class="font-md font-weight-bold">已选中{{checkCount}}个</text>
-				<view slot="right" class="font-md mr-3 text-primary">全选</view>
+				<view slot="right" class="font-md mr-3 text-primary" @click="handleCheckAll(true)">全选</view>
 			</template>
 		</nav-bar>
-		<view class="pt-2" style="height: 1000px;">
-			<view class=" flex m-auto rounded-circle bg-hover-light" style="width: 90%;">
-				<text class="ml-4 iconfont icon-sousuo pr-2"></text>
-				<input placeholder="搜索网盘文件" />
-			</view>
-			<!-- 	<block v-for="(item,index) in list" :key="index">
+		<view class="
+				 pt-2" style="height: 1000px;">
+					<view class=" flex m-auto rounded-circle bg-hover-light" style="width: 90%;">
+						<text class="ml-4 iconfont icon-sousuo pr-2"></text>
+						<input placeholder="搜索网盘文件" />
+					</view>
+					<!-- 	<block v-for="(item,index) in list" :key="index">
 				<file-folder-list :item="item" :index="index"></file-folder-list>
 			</block> -->
-			<!-- 列表 -->
-			<f-list v-for="(item,index) in list" :key="index" :item="item" :index="index" @select="select"></f-list>
-		</view>
+					<!-- 列表 -->
+					<f-list v-for="(item,index) in list" :key="index" :item="item" :index="index" @select="select"></f-list>
+				</view>
 	</view>
 </template>
 
@@ -126,6 +127,12 @@
 			select(e) {
 				//接收到子组件传递过来的索引选中状态，将对应的list中的数据更新
 				this.list[e.index].checked = e.value
+			},
+			// 全选/取消全选
+			handleCheckAll(checked) {
+				this.list.forEach(item => {
+					item.checked = checked;
+				})
 			}
 		},
 		computed: {
