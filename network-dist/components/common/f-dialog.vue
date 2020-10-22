@@ -3,17 +3,17 @@
 	<uni-popup ref="dialog">
 		<!-- 弹出层最外层容器样式 -->
 		<view style="width: 600rpx;" class="bg-white rounded">
-			<!-- 弹出层标签样式，标题通风父组件传过来 -->
+			<!-- 弹出层标签样式，标题通过父组件传过来 -->
 			<view class="flex align-center justify-center font-weight-bold border-bottom border-light-secondary" style="height: 100rpx;">{{title}}</view>
-		</view>
-		<!-- 弹出层的内容，通过插槽分发，这样可以在父组件中随意给定各种内容 -->
-		<view class="flex align-center justify-center p-3">
-			<slot></slot>
-		</view>
-		<!-- 确定和取消区域，用@tap时间更贴合手机端操作，上面显示的文字也可以通过props传递，更灵活 -->
-		<view class="flex border-top border-light-secondary" style="height:100rpx">
-			<view class="flex-1 text-muted flex align-center justify-center" @tap="cencel">{{cancelText}}</view>
-			<view class="flex-1 text-main flex align-center justify-center" @tap="cencel">{{confirmText}}</view>
+			<!-- 弹出层的内容，通过插槽分发，这样可以在父组件中随意给定各种内容 -->
+			<view class="flex align-center justify-center p-3">
+				<slot></slot>
+			</view>
+			<!-- 确定和取消区域，用@tap事件更贴合手机端操作，上面显示的文字也可以通过props传递，更灵活 -->
+			<view class="flex border-top border-light-secondary" style="height:100rpx">
+				<view class="flex-1 text-muted flex align-center justify-center" @tap="cancel()">{{cancelText}}</view>
+				<view class="flex-1 text-main flex align-center justify-center" @tap="confirm()">{{confirmText}}</view>
+			</view>
 		</view>
 	</uni-popup>
 </template>

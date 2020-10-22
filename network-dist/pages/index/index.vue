@@ -51,15 +51,18 @@
 		<f-dialog ref="dialog">是否删除选中的文件？</f-dialog>
 		<!-- 添加操作条，type表示弹出的位置类型，具体取值都在popup子组件中 -->
 		<uni-popup ref="add" type="bottom" style="height: 200rpx;">
-			<!-- 遍历addList数组，纵向 flex，为每个操作分配等高的空间，每个操作有图标和名称组成 -->
-			<view class="flex-1 flex align-center justify-center flex-column" hover-class="bg-light" v-for="(item,index) in addList"
-			 :key="index">
-				<!-- 每个操作的图标，可以传入图标的名称和颜色 -->
-				<text style="width: 110rpx;height: 110rpx;" class="rounded-circle bg-light iconfont flex align-center justify-center"
-				 :class="item.icon+' '+item.color"></text>
+			<view class="bg-white flex" style="height: 200rpx;">
+
+				<!-- 遍历addList数组，纵向 flex，为每个操作分配等高的空间，每个操作有图标和名称组成 -->
+				<view class="flex-1 flex align-center justify-center flex-column" hover-class="bg-light" v-for="(item,index) in addList"
+				 :key="index">
+					<!-- 每个操作的图标，可以传入图标的名称和颜色 -->
+					<text style="width: 110rpx;height: 110rpx;" class="rounded-circle bg-light iconfont flex align-center justify-center"
+					 :class="item.icon+' '+item.color"></text>
+					<!-- 每个操作的名称 -->
+					<text class="font text-muted">{{item.name}}</text>
+				</view>
 			</view>
-			<!-- 每个操作的名称 -->
-			<text class="font text-muted">{{item.name}}</text>
 		</uni-popup>
 	</view>
 </template>
