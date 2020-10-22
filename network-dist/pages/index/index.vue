@@ -5,7 +5,8 @@
 			<template v-if="checkCount===0">
 				<text slot="left" class="font-md ml-3">首页</text>
 				<template slot="right">
-					<view style="width: 60rpx;height: 60rpx;" class="flex align-center justify-center bg-icon rounded-circle mr-3">
+					<view style="width: 60rpx;height: 60rpx;" class="flex align-center justify-center bg-icon rounded-circle mr-3"
+					 @tap="openAddDialog">
 						<text class="iconfont icon-zengjia"></text>
 					</view>
 					<view style="width: 60rpx;height: 60rpx;" class="flex align-center justify-center bg-icon rounded-circle mr-3">
@@ -48,6 +49,18 @@
 		</view>
 		<!-- 是否要删除 -->
 		<f-dialog ref="dialog">是否删除选中的文件？</f-dialog>
+		<!-- 添加操作条，type表示弹出的位置类型，具体取值都在popup子组件中 -->
+		<uni-popup ref="add" type="bottom" style="height: 200rpx;">
+			<!-- 遍历addList数组，纵向 flex，为每个操作分配等高的空间，每个操作有图标和名称组成 -->
+			<view class="flex-1 flex align-center justify-center flex-column" hover-class="bg-light" v-for="(item,index) in addList"
+			 :key="index">
+				<!-- 每个操作的图标，可以传入图标的名称和颜色 -->
+				<text style="width: 110rpx;height: 110rpx;" class="rounded-circle bg-light iconfont flex align-center justify-center"
+				 :class="item.icon+' '+item.color"></text>
+			</view>
+			<!-- 每个操作的名称 -->
+			<text class="font text-muted">{{item.name}}</text>
+		</uni-popup>
 	</view>
 </template>
 
@@ -58,6 +71,7 @@
 	import fileFolderList from '@/components/list/flieFolderList.vue'
 	import fList from '@/components/common/f-list.vue'
 	import fDialog from '@/components/common/f-dialog.vue'
+	import uniPopup from '@/components/uni-ui/uni-popup/uni-popup.vue';
 	const files = [{
 			image: '/static/icons/folder_48px.png',
 			filename: '我的笔记',
@@ -127,11 +141,29 @@
 			navBar,
 			fileFolderList,
 			fList,
-			fDialog
+			fDialog,
+			uniPopup
 		},
 		data() {
 			return {
-				list: []
+				list: [],
+				addList: [{
+					icon: "icon-file-b-6",
+					color: "text-success",
+					name: "上传图片"
+				}, {
+					icon: "icon-file-b-9",
+					color: "text-primary",
+					name: "上传视频"
+				}, {
+					icon: "icon-file-b-8",
+					color: "text-muted",
+					name: "上传文件"
+				}, {
+					icon: "icon-file-b-2",
+					color: "text-warning",
+					name: "新建文件夹",
+				}]
 			}
 		},
 		props: {
@@ -166,8 +198,12 @@
 						})
 						break;
 					default:
-					break;
+						break;
 				}
+			},
+			//打开添加操作条
+			openAddDialog() {
+				this.$refs.add.open();
 			}
 		},
 		computed: {
