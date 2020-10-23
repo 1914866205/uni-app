@@ -29,7 +29,7 @@
 					<file-folder-list :item="item" :index="index"></file-folder-list>
 				</block> -->
 			<!-- 列表 -->
-			<f-list v-for="(item,index) in list" :key="index" :item="item" :index="index" @select="select"></f-list>
+			<f-list v-for="(item,index) in list" :key="index" :item="item" :index="index" @select="select" @click="doEvent(item)"></f-list>
 
 		</view>
 		<!-- 底部操作条 -->
@@ -133,13 +133,29 @@
 			type: 'image',
 			name: '风景.jpg',
 			create_time: '2020-10-21 08:00',
+			data: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3475013809,3762734540&fm=26&gp=0.jpg',
+			checked: false
+		},
+		{
+			type: 'image',
+			name: '小姐姐.jpg',
+			create_time: '2020-10-21 08:00',
+			data: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3724743039,3668514198&fm=26&gp=0.jpg',
+			checked: false
+		},
+		{
+			type: 'image',
+			name: '头像.jpg',
+			create_time: '2020-10-21 08:00',
+			data: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1136475906,366246332&fm=15&gp=0.jpg',
 			checked: false
 		},
 		{
 			type: 'video',
-			name: 'uniapp实战教程.mp4',
+			name: 'Esc服务器配置mp4',
 			create_time: '2020-10-21 08:00',
-			checked: false
+			checked: false,
+			data: 'https://niit-soft.oss-cn-hangzhou.aliyuncs.com/soft1851/share/ECS%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AEJava%E7%8E%AF%E5%A2%83.mp4?spm=5176.8466032.0.dopenurl.22c71450lDK996&file=ECS%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AEJava%E7%8E%AF%E5%A2%83.mp4'
 		},
 		{
 			type: 'text',
@@ -197,6 +213,28 @@
 			this.list = list;
 		},
 		methods: {
+			//列表点击事件处理
+			doEvent(item) {
+				switch (item.type) {
+					case 'image': //预览图片
+						let images = this.list.filter(item => {
+							return item.type === 'image'
+						})
+						uni.previewImage({
+							current: item.data,
+							urls: images.map(item=>item.data)
+						})
+						break;
+					case 'video':
+						console.log(item.data)
+						uni.navigateTo({
+							url: '../video/video?url=' + item.data + '&title=' + item.name,
+						})
+						break;
+					default:
+						break;
+				}
+			},
 			select(e) {
 				//接收到子组件传递过来的索引选中状态，将对应的list中的数据更新
 				this.list[e.index].checked = e.value

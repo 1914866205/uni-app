@@ -1,5 +1,5 @@
 <template>
-	<view class="p-3 flex align-center border-bottom border-light-secondary">
+	<view class="p-3 flex align-center border-bottom border-light-secondary" @click="$emit('click')">
 		<text class="iconfont" :class="iconClass" style="font-size: 6-rpx;"></text>
 		<view class="flex flex-column ml-3" style="line-height: 1.2;">
 			<text class="font-md">{{ item.name }}</text>

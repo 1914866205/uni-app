@@ -17,6 +17,11 @@
 			"style":{
 				"navigationBarTitleText":"uni-app"
 			}
+		},{
+			"path":"pages/video/video",
+			"style":{
+				"navigationBarTitleText":"uni-app"
+			}
 		}
 	],
 	"globalStyle": {
