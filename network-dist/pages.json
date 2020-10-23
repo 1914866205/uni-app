@@ -10,7 +10,19 @@
 		},{
 			"path":"pages/list/list",
 			"style":{
-				"navigationBarTitleText":"uni-app"
+				"navigationBarTitleText":"传输列表",
+				"app-plus":{
+					"titleNView":{
+						"buttons":[{
+							"color":"#333333",
+							"colorPressed":"#009CFF",
+							"float":"right",
+							"fontSize":"22px",
+							"fontSrc":"/static/iconfont.tff",
+							"text":"\ue64a"
+						}]
+					}
+				}
 			}
 		},{
 			"path":"pages/my/my",
