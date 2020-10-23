@@ -9,7 +9,8 @@
 					 @tap="openAddDialog">
 						<text class="iconfont icon-zengjia"></text>
 					</view>
-					<view style="width: 60rpx;height: 60rpx;" class="flex align-center justify-center bg-icon rounded-circle mr-3">
+					<view style="width: 60rpx;height: 60rpx;" class="flex align-center justify-center bg-icon rounded-circle mr-3"
+					@click="openSortDialog">
 						<text class="iconfont icon-gengduo"></text>
 					</view>
 				</template>
@@ -76,7 +77,21 @@
 					<text class="font text-muted">{{item.name}}</text>
 				</view>
 			</view>
-			<view style="height::;px;"></view>
+		</uni-popup>
+		
+		<!-- 排序框，底部弹出，遍历排序操作数组，为当前索引项绑定文字蓝色样式 -->
+		<uni-popup ref="sort" type="bottom">
+			<view class="bg-white">
+				<view v-for="(item,index) in sortOptions"
+				 :key="index"
+				  class="flex align-center justify-center py-3 font border-bottom border-light-secondary"
+				  :class="index===sortIndex?'text-main':'text-dart'"
+				  hover-class="bg-light"
+				  @click="changeSort(index)"
+				  >
+					{{item.name}}
+				</view>
+			</view>
 		</uni-popup>
 	</view>
 </template>
@@ -182,6 +197,15 @@
 		},
 		data() {
 			return {
+				sortIndex:0,
+				sortOptions:[
+					{
+						name:'按名称排序'
+					},
+					{
+						name:'按时间排序'
+					}
+				],
 				newdirname: '',
 				renameValue: '',
 				list: [],
@@ -213,6 +237,14 @@
 			this.list = list;
 		},
 		methods: {
+			//切换顺序
+			changeSort(index){
+				this.sortIndex=index;
+				this.$refs.sort.close();
+			},
+			openSortDialog(){
+				this.$refs.sort.open();
+			},
 			//列表点击事件处理
 			doEvent(item) {
 				switch (item.type) {
