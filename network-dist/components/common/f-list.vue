@@ -1,14 +1,24 @@
 <template>
-	<view class="p-3 flex align-center border-bottom border-light-secondary" @click="$emit('click')">
-		<text class="iconfont" :class="iconClass" style="font-size: 6-rpx;"></text>
+	<view>
+		
+	<view class="p-3 flex align-center border-bottom border-light-secondary"
+	 @click="$emit('click')"
+	 hover-class="bg-light">
+		<text class="iconfont" :class="iconClass" style="font-size: 60rpx;"></text>
 		<view class="flex flex-column ml-3" style="line-height: 1.2;">
 			<text class="font-md">{{ item.name }}</text>
 			<text class="font-sm text-muted">{{ item.create_time }}</text>
 		</view>
-		<view class="ml-auto flex align-center justify-center" style="70rpx;height: 70rpx;" @click.stop="select">
+		<view v-if="showRight" class="ml-auto">
+			<slot>
+		<view class="flex align-center justify-center" style="70rpx;height: 70rpx;" @click.stop="select">
 			<text v-if="!item.checked" style="height: 25rpx;width: 25rpx;" class="border rounded-circle"></text>
 			<text v-else class="iconfont icon-xuanze-yixuan text-primary" style="font-size: 40rpx;"></text>
 		</view>
+			</slot>
+		</view>
+	</view>
+	<slot name="bottom"></slot>
 	</view>
 </template>
 
@@ -39,7 +49,11 @@
 	export default {
 		props: {
 			item: Object,
-			index: [Number, String]
+			index: [Number, String],
+			showRight:{
+				type:Boolean,
+				default:true
+		}
 		},
 		computed: {
 			iconClass() {

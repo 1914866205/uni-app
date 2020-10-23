@@ -142,21 +142,23 @@
 			type: 'dir',
 			name: '我的笔记',
 			create_time: '2020-10-21 08:00',
-			checked: false
+			checked: false,
+			download:100
 		},
 		{
 			type: 'image',
 			name: '风景.jpg',
 			create_time: '2020-10-21 08:00',
 			data: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3475013809,3762734540&fm=26&gp=0.jpg',
-			checked: false
+			checked: false,
 		},
 		{
 			type: 'image',
 			name: '小姐姐.jpg',
 			create_time: '2020-10-21 08:00',
 			data: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3724743039,3668514198&fm=26&gp=0.jpg',
-			checked: false
+			checked: false,
+			download:50
 		},
 		{
 			type: 'image',
