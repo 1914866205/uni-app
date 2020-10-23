@@ -30,6 +30,7 @@
 				</block> -->
 			<!-- 列表 -->
 			<f-list v-for="(item,index) in list" :key="index" :item="item" :index="index" @select="select"></f-list>
+
 		</view>
 		<!-- 底部操作条 -->
 		<!-- 选择更个数大于0才会出现这个操作条 -->
@@ -53,13 +54,21 @@
 		<f-dialog ref="rename">
 			<input type="text" v-model="renameValue" class="flex-1 bg-light rounded px-2" style="height: 95rpx;" placeholder="重命名" />
 		</f-dialog>
+
+		<!-- 新建文件夹，使用自定义弹出层，使用input作为插槽，绑定data中的bewdirname变量 -->
+		<f-dialog ref="newdir">
+			<input type="text" v-model="newdirname" class="flex-1 bg-light rounded px-2" style="height: 95rpx;" placeholder="新建文件夹名称" />
+		</f-dialog>
+
+
 		<!-- 添加操作条，type表示弹出的位置类型，具体取值都在popup子组件中 -->
 		<uni-popup ref="add" type="bottom" style="height: 200rpx;">
+			<!-- 这里要留一定的高度，因为底部操作条需要被固定在底部，并空出底部tabbar高度的地方 -->
 			<view class="bg-white flex" style="height: 200rpx;">
 
 				<!-- 遍历addList数组，纵向 flex，为每个操作分配等高的空间，每个操作有图标和名称组成 -->
 				<view class="flex-1 flex align-center justify-center flex-column" hover-class="bg-light" v-for="(item,index) in addList"
-				 :key="index">
+				 :key="index" @tap="handleAddEvent(item)">
 					<!-- 每个操作的图标，可以传入图标的名称和颜色 -->
 					<text style="width: 110rpx;height: 110rpx;" class="rounded-circle bg-light iconfont flex align-center justify-center"
 					 :class="item.icon+' '+item.color"></text>
@@ -67,6 +76,7 @@
 					<text class="font text-muted">{{item.name}}</text>
 				</view>
 			</view>
+			<view style="height::;px;"></view>
 		</uni-popup>
 	</view>
 </template>
@@ -156,6 +166,7 @@
 		},
 		data() {
 			return {
+				newdirname: '',
 				renameValue: '',
 				list: [],
 				addList: [{
@@ -209,7 +220,7 @@
 								icon: 'none'
 							})
 							//在这儿可以写点击删除需要做的回调事件，
-							// 这里先在控制台模拟,实际需要表checkList移除掉
+							// 这里先在控制台模拟,实际需要表checkList移除掉重命名，批量删除
 							// console.log('删除文件');
 							// console.log(this.checkList);
 						})
@@ -233,10 +244,40 @@
 						break;
 				}
 			},
+			//处理添加操作条的各种事件
+			handleAddEvent(item) {
+				this.$refs.add.close();
+				switch (item.name) {
+					case '新建文件夹':
+						this.$refs.newdir.open(close => {
+							if (this.newdirname == '') {
+								return uni.showToast({
+									title: '文件夹名称不能为空',
+									icon: 'none'
+								})
+							}
+							//模拟请求服务器，这里先增加到list数组中
+							this.list.push({
+								type: 'dir',
+								name: this.newdirname,
+								create_time: '2020-10-22 17:00',
+								checked: false
+							});
+							uni.showToast({
+								title: '新建文件夹成功',
+								icon: 'none'
+							});
+							close();
+						});
+						break;
+					default:
+						break;
+				}
+			},
 			//打开添加操作条
 			openAddDialog() {
 				this.$refs.add.open();
-			}
+			},
 		},
 		computed: {
 			//选中列表
