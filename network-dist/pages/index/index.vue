@@ -25,9 +25,9 @@
 				<text class="ml-4 iconfont icon-sousuo pr-2"></text>
 				<input placeholder="搜索网盘文件" />
 			</view>
-			<!-- 	<block v-for="(item,index) in list" :key="index">
-				<file-folder-list :item="item" :index="index"></file-folder-list>
-			</block> -->
+			<!-- 		<block v-for="(item,index) in list" :key="index">
+					<file-folder-list :item="item" :index="index"></file-folder-list>
+				</block> -->
 			<!-- 列表 -->
 			<f-list v-for="(item,index) in list" :key="index" :item="item" :index="index" @select="select"></f-list>
 		</view>
@@ -39,7 +39,7 @@
 			<!-- 操作条容器的样式，高度，颜色，固定在底部，垂直方向拉升效果 -->
 			<view style="height: 115rpx;" class="flex align-stretch bg-primary text-white fixed-bottom">
 				<!-- 根据元素个数等分容器，所以要么四等分，要么二等分，
-			行高的修改可以让图标和文字之间的距离变的合理，点击还会变色 :hover-class-->
+				行高的修改可以让图标和文字之间的距离变的合理，点击还会变色 :hover-class-->
 				<view class="flex-1 flex flex-column align-center justify-center" style="line-height: 1.5;" v-for="(item,index) in actions"
 				 :key="index" hover-class="bg-hover-primary" @click="handleBottomEvent(item)">
 					<text class="iconfont" :class="item.icon"></text>
@@ -49,6 +49,10 @@
 		</view>
 		<!-- 是否要删除 -->
 		<f-dialog ref="dialog">是否删除选中的文件？</f-dialog>
+		<!-- 重命名，通过ref定义不同的对话框对象，不同操作弹出的dialog是不同的对象 -->
+		<f-dialog ref="rename">
+			<input type="text" v-model="renameValue" class="flex-1 bg-light rounded px-2" style="height: 95rpx;" placeholder="重命名" />
+		</f-dialog>
 		<!-- 添加操作条，type表示弹出的位置类型，具体取值都在popup子组件中 -->
 		<uni-popup ref="add" type="bottom" style="height: 200rpx;">
 			<view class="bg-white flex" style="height: 200rpx;">
@@ -68,8 +72,11 @@
 </template>
 
 
+
+
+
 <script>
-	// import uniStatusBar from '@/components/uni-ui/uni-status-bar/uni-status-bar.vue'
+	import uniStatusBar from '@/components/uni-ui/uni-status-bar/uni-status-bar.vue'
 	import navBar from '@/components/common/nav-bar.vue'
 	import fileFolderList from '@/components/list/flieFolderList.vue'
 	import fList from '@/components/common/f-list.vue'
@@ -140,7 +147,7 @@
 
 	export default {
 		components: {
-			// uniStatusBar
+			uniStatusBar,
 			navBar,
 			fileFolderList,
 			fList,
@@ -149,6 +156,7 @@
 		},
 		data() {
 			return {
+				renameValue: '',
 				list: [],
 				addList: [{
 					icon: "icon-file-b-6",
@@ -193,11 +201,32 @@
 				switch (item.name) {
 					case '删除':
 						this.$refs.dialog.open(close => {
+							//对List进行过滤，留下未被选中的
+							this.list = this.list.filter(item => !item.checked)
 							close();
+							uni.showToast({
+								title: '删除成功',
+								icon: 'none'
+							})
 							//在这儿可以写点击删除需要做的回调事件，
 							// 这里先在控制台模拟,实际需要表checkList移除掉
-							console.log('删除文件');
-							console.log(this.checkList);
+							// console.log('删除文件');
+							// console.log(this.checkList);
+						})
+						break;
+					case '重命名':
+						//重命名只能对单个文件进行，所以取this.checkList[0],也就是选中的唯一元素
+						this.renameValue = this.checkList[0].name;
+						this.$refs.rename.open(close => {
+							if (this.renameValue == '') {
+								return uni.showToast({
+									title: '文件名称不能为空',
+									icon: 'none'
+								})
+							}
+							//更新该元素的name值，实时看到效果
+							this.checkList[0].name = this.renameValue;
+							close();
 						})
 						break;
 					default:
@@ -246,45 +275,50 @@
 		}
 	}
 
+
+
+
+
 	/*
-		<template>
+   
+	<template>
+		<view>
+		<!-- 	uni.request({
+				url: 'http://localhost:7001/list',
+				method: 'GET',
+				success: res => {
+					console.log(res.data.data)
+				}
+			}) -->
+			
+			<!--  自定义导航栏 -->
 			<view>
-			<!-- 	uni.request({
-					url: 'http://localhost:7001/list',
-					method: 'GET',
-					success: res => {
-						console.log(res.data.data)
-					}
-				}) -->
-				
-				<!--  自定义导航栏 -->
-				<view>
-					<!-- 驼峰式自动转换为中划线式 -->
-					<!-- 顶部 -->
-					<uni-status-bar>
-						<!-- 此处不为rpx -->
-						<view style="height: 44px;" class="flex border-bottom align-center">
-							<view class="flex-1 flex">
-								<!-- ml  margin left 32 -->
-								<text class="font-md ml-3">首页</text>
+				<!-- 驼峰式自动转换为中划线式 -->
+				<!-- 顶部 -->
+				<uni-status-bar>
+					<!-- 此处不为rpx -->
+					<view style="height: 44px;" class="flex border-bottom align-center">
+						<view class="flex-1 flex">
+							<!-- ml  margin left 32 -->
+							<text class="font-md ml-3">首页</text>
+						</view>
+						<view class="flex-1 flex justify-center"></view>
+						<view class="flex-1 flex justify-end">
+							<view style="width: 60rpx;height: 60rpx;" class="flex align-center justify-center bg-light rounded-circle mr-3">
+								<text class="iconfont icon-zengjia"></text>
 							</view>
-							<view class="flex-1 flex justify-center"></view>
-							<view class="flex-1 flex justify-end">
-								<view style="width: 60rpx;height: 60rpx;" class="flex align-center justify-center bg-light rounded-circle mr-3">
-									<text class="iconfont icon-zengjia"></text>
-								</view>
-								<view style="width: 60rpx;height: 60rpx;" class="flex align-center justify-center bg-light rounded-circle mr-3">
-									<text class="iconfont icon-gengduo"></text>
-								</view>
+							<view style="width: 60rpx;height: 60rpx;" class="flex align-center justify-center bg-light rounded-circle mr-3">
+								<text class="iconfont icon-gengduo"></text>
 							</view>
 						</view>
-					</uni-status-bar>
-				</view> 
-			</view>
-	
-		</template>
-	
-		*/
+					</view>
+				</uni-status-bar>
+			</view> 
+		</view>
+		
+	</template>
+		
+	*/
 </script>
 
 <style>
