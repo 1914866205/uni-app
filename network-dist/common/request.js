@@ -2,10 +2,9 @@ export default {
 	// 全局配置
 	common: {
 		// #ifndef H5
-		baseUrl: "http://127.0.0.1:7001",
-		// #endif
+ 		// #endif
 		// #ifdef H5
-		baseUrl: "/api",
+		baseUrl: "http://127.0.0.1:7001",
 		// #endif
 		header: {
 			'Content-Type': 'application/json;charset=UTF-8',
@@ -19,6 +18,7 @@ export default {
 	request(options = {}) {
 		// 组织参数
 		options.url = this.common.baseUrl + options.url
+		console.log(options.url)
 		options.header = options.header || this.common.header
 		options.data = options.data || this.common.data
 		options.method = options.method || this.common.method

@@ -1,8 +1,7 @@
 <script>
 	export default {
 		onLaunch: function() {
-			console.log('App Launch'),
-			console.log(this.$store.state.test)
+			console.log('App Launch')
 		},
 		onShow: function() {
 			console.log('App Show')

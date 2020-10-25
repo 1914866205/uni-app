@@ -1,9 +1,21 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
 Vue.use(Vuex)
+
 export default new Vuex.Store({
 	state: {
-		test: 123
+		user: null,
+		token: null
+	},
+	actions: {
+		login({
+			state
+		}, user) {
+			state.user = user
+			state.token = user.token
+			console.log('index.js'+user.id)
+			uni.setStorageSync('user', JSON.stringify(user))
+			uni.setStorageSync('token', user.token)
+		}
 	}
 })
