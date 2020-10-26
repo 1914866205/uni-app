@@ -25,7 +25,7 @@
 							"colorPressed":"#009CFF",
 							"float":"right",
 							"fontSize":"22px",
-							"fontSrc":"/static/iconfont.tff",
+							"fontSrc":"/static/iconfont.ttf",
 							"text":"\ue64a"
 						}]
 					}
