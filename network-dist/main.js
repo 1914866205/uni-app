@@ -10,6 +10,19 @@ import store from './store/index.js'
 Vue.prototype.$store=store
 
 Vue.config.productionTip = false
+Vue.prototype.authMethod = (callback) => {
+	if (!store.state.token) {
+		uni.showToast({
+			title: '没有token',
+			icon: 'none'
+		});
+		return uni.navigateTo({
+			url: '/pages/login/login',
+		});
+	}
+
+	callback()
+}
 
 App.mpType = 'app'
 
