@@ -10,7 +10,7 @@
 						<text class="iconfont icon-zengjia"></text>
 					</view>
 					<view style="width: 60rpx;height: 60rpx;" class="flex align-center justify-center bg-icon rounded-circle mr-3"
-					@click="openSortDialog">
+					 @click="openSortDialog">
 						<text class="iconfont icon-gengduo"></text>
 					</view>
 				</template>
@@ -78,17 +78,12 @@
 				</view>
 			</view>
 		</uni-popup>
-		
+
 		<!-- 排序框，底部弹出，遍历排序操作数组，为当前索引项绑定文字蓝色样式 -->
 		<uni-popup ref="sort" type="bottom">
 			<view class="bg-white">
-				<view v-for="(item,index) in sortOptions"
-				 :key="index"
-				  class="flex align-center justify-center py-3 font border-bottom border-light-secondary"
-				  :class="index===sortIndex?'text-main':'text-dart'"
-				  hover-class="bg-light"
-				  @click="changeSort(index)"
-				  >
+				<view v-for="(item,index) in sortOptions" :key="index" class="flex align-center justify-center py-3 font border-bottom border-light-secondary"
+				 :class="index===sortIndex?'text-main':'text-dart'" hover-class="bg-light" @click="changeSort(index)">
 					{{item.name}}
 				</view>
 			</view>
@@ -138,55 +133,55 @@
 			checked: false
 		}
 	]
-	const list = [{
-			type: 'dir',
-			name: '我的笔记',
-			create_time: '2020-10-21 08:00',
-			checked: false,
-			download:100
-		},
-		{
-			type: 'image',
-			name: '风景.jpg',
-			create_time: '2020-10-21 08:00',
-			data: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3475013809,3762734540&fm=26&gp=0.jpg',
-			checked: false,
-		},
-		{
-			type: 'image',
-			name: '小姐姐.jpg',
-			create_time: '2020-10-21 08:00',
-			data: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3724743039,3668514198&fm=26&gp=0.jpg',
-			checked: false,
-			download:50
-		},
-		{
-			type: 'image',
-			name: '头像.jpg',
-			create_time: '2020-10-21 08:00',
-			data: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1136475906,366246332&fm=15&gp=0.jpg',
-			checked: false
-		},
-		{
-			type: 'video',
-			name: 'Esc服务器配置mp4',
-			create_time: '2020-10-21 08:00',
-			checked: false,
-			data: 'https://niit-soft.oss-cn-hangzhou.aliyuncs.com/soft1851/share/ECS%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AEJava%E7%8E%AF%E5%A2%83.mp4?spm=5176.8466032.0.dopenurl.22c71450lDK996&file=ECS%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AEJava%E7%8E%AF%E5%A2%83.mp4'
-		},
-		{
-			type: 'text',
-			name: '记事本.txt',
-			create_time: '2020-10-21 08:00',
-			checked: false
-		},
-		{
-			type: 'none',
-			name: '压缩包.rar',
-			create_time: '2020-10-21 08:00',
-			checked: false
-		}
-	]
+	// const list = [{
+	// 		type: 'dir',
+	// 		name: '我的笔记',
+	// 		create_time: '2020-10-21 08:00',
+	// 		checked: false,
+	// 		download:100
+	// 	},
+	// 	{
+	// 		type: 'image',
+	// 		name: '风景.jpg',
+	// 		create_time: '2020-10-21 08:00',
+	// 		data: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3475013809,3762734540&fm=26&gp=0.jpg',
+	// 		checked: false,
+	// 	},
+	// 	{
+	// 		type: 'image',
+	// 		name: '小姐姐.jpg',
+	// 		create_time: '2020-10-21 08:00',
+	// 		data: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3724743039,3668514198&fm=26&gp=0.jpg',
+	// 		checked: false,
+	// 		download:50
+	// 	},
+	// 	{
+	// 		type: 'image',
+	// 		name: '头像.jpg',
+	// 		create_time: '2020-10-21 08:00',
+	// 		data: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1136475906,366246332&fm=15&gp=0.jpg',
+	// 		checked: false
+	// 	},
+	// 	{
+	// 		type: 'video',
+	// 		name: 'Esc服务器配置mp4',
+	// 		create_time: '2020-10-21 08:00',
+	// 		checked: false,
+	// 		data: 'https://niit-soft.oss-cn-hangzhou.aliyuncs.com/soft1851/share/ECS%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AEJava%E7%8E%AF%E5%A2%83.mp4?spm=5176.8466032.0.dopenurl.22c71450lDK996&file=ECS%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AEJava%E7%8E%AF%E5%A2%83.mp4'
+	// 	},
+	// 	{
+	// 		type: 'text',
+	// 		name: '记事本.txt',
+	// 		create_time: '2020-10-21 08:00',
+	// 		checked: false
+	// 	},
+	// 	{
+	// 		type: 'none',
+	// 		name: '压缩包.rar',
+	// 		create_time: '2020-10-21 08:00',
+	// 		checked: false
+	// 	}
+	// ]
 
 	export default {
 		components: {
@@ -199,13 +194,12 @@
 		},
 		data() {
 			return {
-				sortIndex:0,
-				sortOptions:[
-					{
-						name:'按名称排序'
+				sortIndex: 0,
+				sortOptions: [{
+						name: '按名称排序'
 					},
 					{
-						name:'按时间排序'
+						name: '按时间排序'
 					}
 				],
 				newdirname: '',
@@ -236,15 +230,44 @@
 		},
 		onLoad() {
 			// this.list = files;
-			this.list = list;
+			// this.list = list;
+			this.getData()
 		},
 		methods: {
+			formatList(list) {
+				return list.map(item => {
+					//数据清洗
+					//把文件夹类型转成dir
+					let type = 'none';
+					if (item.isdir === 1) {
+						type = 'dir';
+					} else {
+						//文件扩展名
+						type = item.ext.split('/')[0] || 'none';
+						console.log('type'+type)
+					}
+					return {
+						type,
+						checked: false,
+						...item
+					}
+					
+				});
+			},
+			getData() {
+				this.$H.get('/file?file_id=0', {
+					token: true
+				}).then(res => {
+					console.log(res);
+					this.list = this.formatList(res.rows)
+				})
+			},
 			//切换顺序
-			changeSort(index){
-				this.sortIndex=index;
+			changeSort(index) {
+				this.sortIndex = index;
 				this.$refs.sort.close();
 			},
-			openSortDialog(){
+			openSortDialog() {
 				this.$refs.sort.open();
 			},
 			//列表点击事件处理
@@ -255,14 +278,17 @@
 							return item.type === 'image'
 						})
 						uni.previewImage({
-							current: item.data,
-							urls: images.map(item=>item.data)
+							// current: item.data,
+							current: item.url,
+							// urls: images.map(item => item.data)
+							urls: images.map(item => item.url)
 						})
 						break;
 					case 'video':
-						console.log(item.data)
+						console.log(item.url)
 						uni.navigateTo({
-							url: '../video/video?url=' + item.data + '&title=' + item.name,
+							// url: '../video/video?url=' + item.data + '&title=' + item.name,
+							url: '../video/video?url=' + item.url + '&title=' + item.name,
 						})
 						break;
 					default:

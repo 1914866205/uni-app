@@ -1,7 +1,7 @@
 <template>
 	<view style="height: 100vh;">
 		<!-- 全屏自动播放视频 -->
-		<video :src="url" controls autoplay style="width: 750rpx;height: 100vh;" @ended="back"></video>
+		<video :src="url" controls autoplay muted style="width: 750rpx;height: 100vh;" @ended="back"></video>
 	</view>
 </template>
 
@@ -24,6 +24,7 @@
 				})
 			}
 			this.url = e.url;
+			console.log('video'+this.url)
 			if (e.title) {
 				//把视频文件名作为当前页面的导航标题
 				uni.setNavigationBarTitle({

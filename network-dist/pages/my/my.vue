@@ -15,7 +15,7 @@
 		</view>
 		<view class="bg-light" style="height: 20rpx;"></view>
 		<view class="p-3">
-			<progress class="mb-3" percent="99" active stroke-width="3" />
+			<progress class="mb-3" percent="1" active stroke-width="3" />
 			<view class="flex align-center justify-between font">
 				<text class="text-light-muted">总：{{user.total_size|bytesToSize}}</text>
 				<text class="text-warning">已用：{{user.used_size| bytesToSize}}</text>
@@ -27,7 +27,7 @@
 			<image src="../../static/arrow-right.png" mode="" style="width:40rpx;height: 40rpx;"></image>
 		</view>
 		<view class="position-fixed fixed-bottom bg-main text-white flex align-center justify-center
-		 font-md py-2 rounded-circle"
+		 font-md py-2 rounded-circle" style="margin-bottom: 90rpx;"
 		 hover-class="bg-main-hover" @click="logout">退出登录</view>
 	</view>
 </template>
