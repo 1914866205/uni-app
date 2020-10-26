@@ -405,9 +405,41 @@
 					case '下载':
 						this.download();
 						break;
+					case '分享':
+						this.share();
+						this.handleCheckAll(false);
+						break;
 					default:
 						break;
 				}
+			},
+			share(){
+				this.$H.post('/share/create',
+				{
+					file_id:this.checkList[0].id
+				},{
+					token:true
+				}).then(res=>{
+					uni.showModal({
+						content:res,
+						showCancel:false,
+						success:result=>{
+							//不能再用res，会和前面冲突
+							// #ifdef H5
+							uni.setClipboardData({
+								//复制到剪切板
+								data:res,
+								success:()=>{
+									uni.showToast({
+										title:'复制成功',
+										icon:'none'
+									})
+								}
+							});
+							//#endif
+						}
+					})
+				})
 			},
 			//处理添加操作条的各种事件
 			handleAddEvent(item) {

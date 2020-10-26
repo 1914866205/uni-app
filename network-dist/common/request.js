@@ -2,9 +2,13 @@ export default {
 	// 全局配置
 	common: {
 		// #ifndef H5
- 		// #endif
+			// #endif
 		// #ifdef H5
 		baseUrl: "http://127.0.0.1:7001",
+		// baseUrl: "https://yhchen.utools.club",
+		// // #endif
+		// // #ifdef H5
+		// baseUrl: "/api",
 		// #endif
 		header: {
 			'Content-Type': 'application/json;charset=UTF-8',
