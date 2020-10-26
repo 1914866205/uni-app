@@ -18,7 +18,7 @@ export default {
 	request(options = {}) {
 		// 组织参数
 		options.url = this.common.baseUrl + options.url
-		console.log(options.url)
+		// console.log(options.url)
 		options.header = options.header || this.common.header
 		options.data = options.data || this.common.data
 		options.method = options.method || this.common.method

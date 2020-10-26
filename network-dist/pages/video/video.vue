@@ -1,7 +1,7 @@
 <template>
 	<view style="height: 100vh;">
 		<!-- 全屏自动播放视频 -->
-		<video :src="url" controls autoplay muted style="width: 750rpx;height: 100vh;" @ended="back"></video>
+		<video :src="url" controls autoplay  style="width: 750rpx;height: 100vh;" @ended="back"></video>
 	</view>
 </template>
 

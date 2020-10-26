@@ -3,10 +3,17 @@
 		<!-- 自定义导航栏 -->
 		<nav-bar>
 			<template v-if="checkCount===0">
-				<text slot="left" class="font-md ml-3">首页</text>
+				<!-- 进入子目录，左边将变成返回检讨，导航栏变成子目录名称 -->
+				<template slot="left">
+					<view class="flex align-center justify-center bg-light rounded-circle ml-3" style="width: 60rpx;height: 60rpx;"
+					 hover-class="bg-hover-light" @tap="backUp" v-if="current">
+						<text class="iconfont icon-fanhui"></text>
+					</view>
+					<text class="font-md ml-3">{{current?current.name:'首页'}}</text>
+				</template>
 				<template slot="right">
 					<view style="width: 60rpx;height: 60rpx;" class="flex align-center justify-center bg-icon rounded-circle mr-3"
-					 @tap="openAddDialog">
+					 hover-class="bg-hover-light" @tap="openAddDialog">
 						<text class="iconfont icon-zengjia"></text>
 					</view>
 					<view style="width: 60rpx;height: 60rpx;" class="flex align-center justify-center bg-icon rounded-circle mr-3"
@@ -194,12 +201,15 @@
 		},
 		data() {
 			return {
+				dirs: [],
 				sortIndex: 0,
 				sortOptions: [{
-						name: '按名称排序'
+						name: '按名称排序',
+						key: 'name'
 					},
 					{
-						name: '按时间排序'
+						name: '按时间排序',
+						key: 'created_time'
 					}
 				],
 				newdirname: '',
@@ -231,9 +241,14 @@
 		onLoad() {
 			// this.list = files;
 			// this.list = list;
+			let dirs = uni.getStorageSync('dirs');
+			if (dirs) {
+				this.dirs = JSON.parse(dirs);
+			}
 			this.getData()
 		},
 		methods: {
+			//将数据格式化为我们需要显示的样子，不同的文件类型，是否选中
 			formatList(list) {
 				return list.map(item => {
 					//数据清洗
@@ -244,27 +259,33 @@
 					} else {
 						//文件扩展名
 						type = item.ext.split('/')[0] || 'none';
-						console.log('type'+type)
+						// console.log('type' + type)
 					}
 					return {
 						type,
 						checked: false,
 						...item
 					}
-					
+
 				});
 			},
 			getData() {
-				this.$H.get('/file?file_id=0', {
+				// this.dirs=[]
+				// console.log(this.file_id + '>>>>>>>>');
+				let orderby = this.sortOptions[this.sortIndex].key;
+				console.log(orderby + '&&&&&&&&&&&&&&')
+				this.$H.get(`/file?file_id=${this.file_id}&orderby=${orderby}`, {
 					token: true
 				}).then(res => {
-					console.log(res);
 					this.list = this.formatList(res.rows)
 				})
 			},
 			//切换顺序
 			changeSort(index) {
+				console.log("排序切换")
 				this.sortIndex = index;
+				console.log(this.sortIndex)
+				this.getData();
 				this.$refs.sort.close();
 			},
 			openSortDialog() {
@@ -292,6 +313,15 @@
 						})
 						break;
 					default:
+						this.dirs.push({
+							id: item.id,
+							name: item.name
+						});
+						this.getData();
+						uni.setStorage({
+							key: 'dirs',
+							data: JSON.stringify(this.dirs)
+						});
 						break;
 				}
 			},
@@ -376,8 +406,33 @@
 			openAddDialog() {
 				this.$refs.add.open();
 			},
+			//返回上一个目录
+			backUp() {
+				this.dirs.pop();
+				this.getData();
+				uni.setStorage({
+					key: 'dirs',
+					data: JSON.stringify(this.dirs)
+				})
+			}
 		},
 		computed: {
+			//两个计算属性，事实根据当前dirs数组的变化，file_id计算属性取得应该传到后端的file_id参数（
+			//就是当前目录，current计算属性则用来切换导航栏样式
+			file_id() {
+				let l = this.dirs.length;
+				if (l === 0) {
+					return 0;
+				}
+				return this.dirs[l - 1].id;
+			},
+			current() {
+				let l = this.dirs.length;
+				if (l === 0) {
+					return false
+				}
+				return this.dirs[l - 1];
+			},
 			//选中列表
 			checkList() {
 				return this.list.filter(item => item.checked);
@@ -388,6 +443,7 @@
 			},
 			//操作菜单
 			actions() {
+
 				if (this.checkCount > 1) {
 					return [{
 						icon: "icon-xiazai",
@@ -411,6 +467,25 @@
 					name: "重命名",
 				}]
 			}
+		},
+		actions: {
+			//退出登录
+			logout({
+				state
+			}) {
+				$H.post('/logout', {}, {
+					token: true
+				})
+				state.user = null
+				state.token = null
+				uni.removeStorageSync('user')
+				uni.removeStorageSync('token')
+				uni.removeStorageSync('dirs')
+				//重启应用
+				uni.reLaunch()({
+					url: '/pages/login/login'
+				})
+			},
 		}
 	}
 

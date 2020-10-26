@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="p-3 flex align-center">
-			<image src="/static/me.jpg" style="width: 120rpx;height: 120rpx;" class="rounded-circle flex-shrink mr-3"></image>
+			<image :src="user.avatar" style="width: 120rpx;height: 120rpx;" class="rounded-circle flex-shrink mr-3"></image>
 			<view class="flex-1 flex flex-column text-muted font">
 				<view class="flex align-end">
 					<text class="font-lg text-dark mr-2">{{user.nickname||user.username}}</text>
@@ -57,6 +57,7 @@
 		onShow() {
 			//每次进入页面，都要获取用户的空间大小
 			this.getSize();
+			console.log(this.user.avatar)
 		},
 		methods: {
 			//请求接口，获得最新的空间大小,并提交给Vuex更新	

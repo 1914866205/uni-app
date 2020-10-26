@@ -9,7 +9,7 @@ export default new Vuex.Store({
 			"username": "ntt123",
 			"nickname": "",
 			"email": "",
-			"avatar": "",
+			"avatar": "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=261409204,1345114629&fm=26&gp=0.jpg",
 			"phone": "",
 			"sex": "男",
 			"desc": "",
@@ -18,7 +18,7 @@ export default new Vuex.Store({
 			"created_time": "2020-10-23T09:26:36.000Z",
 			"updated_time": "2020-10-24T17:14:51.000Z",
 		},
-		token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJudHQxMjMiLCJuaWNrbmFtZSI6IiIsImVtYWlsIjoiIiwicGFzc3dvcmQiOiJiY2IxNWY4MjE0NzliNGQ1NzcyYmQwY2E4NjZjMDBhZDVmOTI2ZTM1ODA3MjA2NTljYzgwZDM5YzlkMDk4MDJhIiwiYXZhdGFyIjoiIiwicGhvbmUiOiIiLCJzZXgiOiLnlLciLCJkZXNjIjoiIiwidG90YWxfc2l6ZSI6MTA0ODU3NjAsInVzZWRfc2l6ZSI6NDQ5MywiY3JlYXRlZF90aW1lIjoiMjAyMC0xMC0yM1QwOToyNjozNi4wMDBaIiwidXBkYXRlZF90aW1lIjoiMjAyMC0xMC0yNFQxNzoxNDo1MS4wMDBaIiwiaWF0IjoxNjAzNjM2MjAyfQ.DNWki-LRnZm4dRSesQ-SoxIG6-guWKzbiQhtl7xIXNQ",
+		token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJudHQxMjMiLCJuaWNrbmFtZSI6IiIsImVtYWlsIjoiIiwicGFzc3dvcmQiOiJiY2IxNWY4MjE0NzliNGQ1NzcyYmQwY2E4NjZjMDBhZDVmOTI2ZTM1ODA3MjA2NTljYzgwZDM5YzlkMDk4MDJhIiwiYXZhdGFyIjoiaHR0cHM6Ly9zczEuYmRzdGF0aWMuY29tLzcwY0Z2WFNoX1ExWW54R2twb1dLMUhGNmhoeS9pdC91PTI2MTQwOTIwNCwxMzQ1MTE0NjI5JmZtPTI2JmdwPTAuanBnIiwicGhvbmUiOiIiLCJzZXgiOiLnlLciLCJkZXNjIjoiIiwidG90YWxfc2l6ZSI6MTA0ODU3NjAsInVzZWRfc2l6ZSI6NDQ5MywiY3JlYXRlZF90aW1lIjoiMjAyMC0xMC0yM1QwOToyNjozNi4wMDBaIiwidXBkYXRlZF90aW1lIjoiMjAyMC0xMC0yNFQxNzoxNDo1MS4wMDBaIiwiaWF0IjoxNjAzNjgxMzM3fQ.uq-mXBi6HFN0xEwiGwtqqpRe4jAhZJyxxMYdCNiLu8A",
 	},
 	actions: {
 		logout({
