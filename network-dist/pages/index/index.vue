@@ -425,7 +425,7 @@
 						showCancel:false,
 						success:result=>{
 							//不能再用res，会和前面冲突
-							// #ifdef H5
+							// #ifndef H5
 							uni.setClipboardData({
 								//复制到剪切板
 								data:res,

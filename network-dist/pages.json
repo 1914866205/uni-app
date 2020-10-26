@@ -1,45 +1,56 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-			{"path":"pages/login/login",
-			"style":{
-				"app-plus":{
-					"titleNView":false
+		{
+			"path": "pages/login/login",
+			"style": {
+				"app-plus": {
+					"titleNView": false
 				}
 			}
-			},
+		},
 		{
 			"path": "pages/index/index",
 			"style": {
-				"app-plus":{
-					"titleNView":false
+				"app-plus": {
+					"titleNView": false
 				}
 			}
-		},{
-			"path":"pages/list/list",
-			"style":{
-				"navigationBarTitleText":"传输列表",
-				"app-plus":{
-					"titleNView":{
-						"buttons":[{
-							"color":"#333333",
-							"colorPressed":"#009CFF",
-							"float":"right",
-							"fontSize":"22px",
-							"fontSrc":"/static/iconfont.ttf",
-							"text":"\ue64a"
+		}, {
+			"path": "pages/list/list",
+			"style": {
+				"navigationBarTitleText": "传输列表",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+							"color": "#333333",
+							"colorPressed": "#009CFF",
+							"float": "right",
+							"fontSize": "22px",
+							"fontSrc": "/static/iconfont.ttf",
+							"text": "\ue64a"
 						}]
 					}
 				}
 			}
-		},{
-			"path":"pages/my/my",
-			"style":{
-				"navigationBarTitleText":"uni-app"
+		}, {
+			"path": "pages/my/my",
+			"style": {
+				"navigationBarTitleText": "uni-app"
 			}
-		},{
-			"path":"pages/video/video",
-			"style":{
-				"navigationBarTitleText":"uni-app"
+		}, {
+			"path": "pages/video/video",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/shareurl/shareurl",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false,
+				"app-plus": {
+					"titleNView": false
+				}
 			}
 		}
 	],
@@ -49,30 +60,30 @@
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},
-	"tabBar":{
-		"backgroundColor":"#FFFFFF",
-		"borderStyle":"black",
-		"color":"#BDBDBD",
-		"selectedColor":"#009CFF",
-		"list":[{
+	"tabBar": {
+		"backgroundColor": "#FFFFFF",
+		"borderStyle": "black",
+		"color": "#BDBDBD",
+		"selectedColor": "#009CFF",
+		"list": [{
 			// 默认显示的图片
-			"iconPath":"static/tabbar/index.png",
+			"iconPath": "static/tabbar/index.png",
 			//被选中时显示的图片
-			"selectedIconPath":"static/tabbar/index-selected.png",
+			"selectedIconPath": "static/tabbar/index-selected.png",
 			//被选中时跳转的路径
-			"pagePath":"pages/index/index",
+			"pagePath": "pages/index/index",
 			//标签页名称
-			"text":"首页"
-		},{
-			"iconPath":"static/tabbar/list.png",
-			"selectedIconPath":"static/tabbar/list-selected.png",
-			"pagePath":"pages/list/list",
-			"text":"传输"
-		},{
-			"iconPath":"static/tabbar/my.png",
-			"selectedIconPath":"static/tabbar/my-selected.png",
-			"pagePath":"pages/my/my",
-			"text":"我的"
+			"text": "首页"
+		}, {
+			"iconPath": "static/tabbar/list.png",
+			"selectedIconPath": "static/tabbar/list-selected.png",
+			"pagePath": "pages/list/list",
+			"text": "传输"
+		}, {
+			"iconPath": "static/tabbar/my.png",
+			"selectedIconPath": "static/tabbar/my-selected.png",
+			"pagePath": "pages/my/my",
+			"text": "我的"
 		}]
 	}
 }

@@ -120,6 +120,62 @@ export default new Vuex.Store({
 		}, e) {
 			state.user.total_size = e.total_size
 			state.user.used_size = e.used_size
+		},
+		getShareUrl({
+			state
+		}){
+			// #ifdef H5
+			uni.getClipboardData({
+				success:(res)=>{
+					//通过前面结果可以看到剪贴的连接是以 http://127.0.0.1:7001/开头的，接口上线了这个地址需要修改
+					if(res.data.includes('http://127.0.0.1:/')){
+						//需要从完整的链接截取出来key的值，数据库应该知道真正的链接就是和这个相关的
+						let key =res.data.substring(res.data.lastIndexOf('\/')+1,res.data.length)
+						if(!key){
+							return
+						}
+						uni.showModal({
+							content:'检测到有分享内容，是否打开?',
+							success:(res)=>{
+								if(res.confirm){
+									uni.navigateTo({
+										url:"/pages/shareurl/shareurl?key="+key
+									})
+									//情况剪贴板
+									uni.SetClipboardData({
+										data:''
+									})
+								}
+							}
+						})
+					}
+				}
+			})
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 		}
 	}
 })
+
+/**
+#define            定义一个预处理宏
+#undef            取消宏的定义
+#if                   编译预处理中的条件命令，相当于C语法中的if语句
+#ifdef              判断某个宏是否被定义，若已定义，执行随后的语句
+#ifndef            与#ifdef相反，判断某个宏是否未被定义
+#elif                若#if, #ifdef, #ifndef或前面的#elif条件不满足，则执行#elif之后的语句，相当于C语法中的else-if
+#else              与#if, #ifdef, #ifndef对应, 若这些条件不满足，则执行#else之后的语句，相当于C语法中的else
+#endif             #if, #ifdef, #ifndef这些条件命令的结束标志.
+defined         　与#if, #elif配合使用，判断某个宏是否被定义
+ */
