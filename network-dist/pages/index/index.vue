@@ -338,21 +338,6 @@
 			//处理底部操作条事件，这里仅对“删除”做处理
 			handleBottomEvent(item) {
 				switch (item.name) {
-					// case '删除':
-					// 	this.$refs.dialog.open(close => {
-					// 		//对List进行过滤，留下未被选中的
-					// 		this.list = this.list.filter(item => !item.checked)
-					// 		close();
-					// 		uni.showToast({
-					// 			title: '删除成功',
-					// 			icon: 'none'
-					// 		})
-					// 		//在这儿可以写点击删除需要做的回调事件，
-					// 		// 这里先在控制台模拟,实际需要表checkList移除掉重命名，批量删除
-					// 		// console.log('删除文件');
-					// 		// console.log(this.checkList);
-					// 	})
-					// 	break;
 					case '重命名':
 						//重命名只能对单个文件进行，所以取this.checkList[0],也就是选中的唯一元素
 						this.renameValue = this.checkList[0].name;
@@ -425,6 +410,22 @@
 			handleAddEvent(item) {
 				this.$refs.add.close();
 				switch (item.name) {
+					case '上传文件':
+						break;
+					case '上传视频':
+						break;
+					case '上传图片':
+						//选择图片，限制为9张
+						uni.chooseImage({
+							count: 9,
+							success: res => {
+								//选择图片成功，就循环异步调用上传接口
+								res.tempFiles.forEach(item => {
+									this.upload(item, 'image');
+								})
+							}
+						})
+						break;
 					case '新建文件夹':
 						this.$refs.newdir.open(close => {
 							if (this.newdirname == '') {
@@ -491,6 +492,47 @@
 					res => {
 						this.list = this.formatList(res.rows)
 					})
+			},
+			//生成唯一ID
+			genID(length) {
+				return Number(Math.random().toString().substr(3, length) + Date.now()).toString(36)
+			},
+			//上传
+			upload(file, type) {
+				//上传文件的类型
+				let t = type;
+				//上传的Key,用来区分每个文件
+				const key = this.genID(8)
+				//构建上传文件的对象，文件名， 类型，大小，唯一的key,进度，状态，创建时间
+				let obj = {
+					name: file.name,
+					type: t,
+					size: file.size,
+					key,
+					progress: 0,
+					status: true,
+					created_time: new Date().getTime()
+				};
+				console.log(obj)
+				//创建上传任务，分发给Vuex的Actions，异步上传调度，主要是实时上传进度的回调
+				this.$store.dispatch('createUploadJob', obj);
+				//上传，查询参数为当前位置所在目录的Id,body参数为文件路径
+				console.log(this.file_id + "-----" + file.path)
+				this.$H.upload('/uploa	d?file_id=' + this.file_id, {
+					filePath: file.path
+				}, p => {
+					console.log("更新上传进度")
+					//更新上传任务进度
+					this.$store.dispatch('updateUploadJob', {
+						status: true,
+						progress: p,
+						key
+					});
+				}).then(res => {
+					console.log("上传成功")
+					//上传成功，请求数据更新列表
+					this.getData();
+				})
 			}
 		},
 		computed: {
@@ -565,51 +607,6 @@
 			},
 		}
 	}
-
-
-
-
-
-	/*
-   
-	<template>
-		<view>
-		<!-- 	uni.request({
-				url: 'http://localhost:7001/list',
-				method: 'GET',
-				success: res => {
-					console.log(res.data.data)
-				}
-			}) -->
-			
-			<!--  自定义导航栏 -->
-			<view>
-				<!-- 驼峰式自动转换为中划线式 -->
-				<!-- 顶部 -->
-				<uni-status-bar>
-					<!-- 此处不为rpx -->
-					<view style="height: 44px;" class="flex border-bottom align-center">
-						<view class="flex-1 flex">
-							<!-- ml  margin left 32 -->
-							<text class="font-md ml-3">首页</text>
-						</view>
-						<view class="flex-1 flex justify-center"></view>
-						<view class="flex-1 flex justify-end">
-							<view style="width: 60rpx;height: 60rpx;" class="flex align-center justify-center bg-light rounded-circle mr-3">
-								<text class="iconfont icon-zengjia"></text>
-							</view>
-							<view style="width: 60rpx;height: 60rpx;" class="flex align-center justify-center bg-light rounded-circle mr-3">
-								<text class="iconfont icon-gengduo"></text>
-							</view>
-						</view>
-					</view>
-				</uni-status-bar>
-			</view> 
-		</view>
-		
-	</template>
-		
-	*/
 </script>
 
 <style>
