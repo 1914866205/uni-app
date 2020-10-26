@@ -31,7 +31,7 @@
 		<view class="pt-2" style="height: 1000px;">
 			<view class=" flex m-auto rounded-circle bg-hover-light" style="width: 90%;">
 				<text class="ml-4 iconfont icon-sousuo pr-2"></text>
-				<input placeholder="搜索网盘文件" />
+				<input placeholder="搜索网盘文件" @input="search" />
 			</view>
 			<!-- 		<block v-for="(item,index) in list" :key="index">
 					<file-folder-list :item="item" :index="index"></file-folder-list>
@@ -57,7 +57,7 @@
 			</view>
 		</view>
 		<!-- 是否要删除 -->
-		<f-dialog ref="dialog">是否删除选中的文件？</f-dialog>
+		<f-dialog ref="delete">是否删除选中的文件？</f-dialog>
 		<!-- 重命名，通过ref定义不同的对话框对象，不同操作弹出的dialog是不同的对象 -->
 		<f-dialog ref="rename">
 			<input type="text" v-model="renameValue" class="flex-1 bg-light rounded px-2" style="height: 95rpx;" placeholder="重命名" />
@@ -338,21 +338,21 @@
 			//处理底部操作条事件，这里仅对“删除”做处理
 			handleBottomEvent(item) {
 				switch (item.name) {
-					case '删除':
-						this.$refs.dialog.open(close => {
-							//对List进行过滤，留下未被选中的
-							this.list = this.list.filter(item => !item.checked)
-							close();
-							uni.showToast({
-								title: '删除成功',
-								icon: 'none'
-							})
-							//在这儿可以写点击删除需要做的回调事件，
-							// 这里先在控制台模拟,实际需要表checkList移除掉重命名，批量删除
-							// console.log('删除文件');
-							// console.log(this.checkList);
-						})
-						break;
+					// case '删除':
+					// 	this.$refs.dialog.open(close => {
+					// 		//对List进行过滤，留下未被选中的
+					// 		this.list = this.list.filter(item => !item.checked)
+					// 		close();
+					// 		uni.showToast({
+					// 			title: '删除成功',
+					// 			icon: 'none'
+					// 		})
+					// 		//在这儿可以写点击删除需要做的回调事件，
+					// 		// 这里先在控制台模拟,实际需要表checkList移除掉重命名，批量删除
+					// 		// console.log('删除文件');
+					// 		// console.log(this.checkList);
+					// 	})
+					// 	break;
 					case '重命名':
 						//重命名只能对单个文件进行，所以取this.checkList[0],也就是选中的唯一元素
 						this.renameValue = this.checkList[0].name;
@@ -374,17 +374,47 @@
 									token: true
 								}
 							).then(
-							res=>{
-								this.checkList[0].name=this.renameValue;
-								uni.showToast({
-									title:'重命名成功',
-									icon:'none'
+								res => {
+									this.checkList[0].name = this.renameValue;
+									uni.showToast({
+										title: '重命名成功',
+										icon: 'none'
+									})
 								})
-							})
 							close();
 							// //更新该元素的name值，实时看到效果
 							// this.checkList[0].name = this.renameValue;
 							// close();
+						})
+						break;
+					case '删除':
+						this.$refs.delete.open(close => {
+							//加载框过渡
+							uni.showLoading({
+								title: '删除中...',
+								mask: false
+							});
+							//删除接口需要传 1 2 3 这样的参数形式，所以用map取出checkList中每条数据的Id,然后用join拼接上逗号
+							let ids = this.checkList.map(item => item.id).join(',');
+							this.$H.post(
+								'/file/delete', {
+									ids
+								}, {
+									token: true
+								},
+							).then(res => {
+								//重新请求下数据
+								this.getData();
+								uni.showToast({
+									title: '删除成功',
+									icon: 'none'
+								});
+								//结束loading
+								uni.hideLoading();
+							}).catch(err => {
+								uni.hideLoading()
+							});
+							close();
 						})
 						break;
 					default:
@@ -448,7 +478,20 @@
 					key: 'dirs',
 					data: JSON.stringify(this.dirs)
 				})
-			}
+			},
+			//搜索功能，关键字为空就走请求所有数据的接口，
+			//否则就将文本框实时输入的内容作为关键词搜索
+			// search(e) {
+			// 	if (e.detail.value == '') {
+			// 		return this.getData();
+			// 	}
+			// 	this.$H.get('/file/search?keyword=' + e.detail.value, {
+			// 		token: true
+			// 	}).then(
+			// 		res => {
+			// 			this.list = this.formatList(res.rows)
+			// 		})
+			// }
 		},
 		computed: {
 			//两个计算属性，事实根据当前dirs数组的变化，file_id计算属性取得应该传到后端的file_id参数（
