@@ -384,18 +384,33 @@
 									icon: 'none'
 								})
 							}
-							//模拟请求服务器，这里先增加到list数组中
-							this.list.push({
-								type: 'dir',
-								name: this.newdirname,
-								create_time: '2020-10-22 17:00',
-								checked: false
-							});
-							uni.showToast({
-								title: '新建文件夹成功',
-								icon: 'none'
-							});
+							//请求新增文件夹接口
+							this.$H.post('/file/createdir', {
+								file_id: this.file_id,
+								name: this.newdirname
+							}, {
+								token: true
+							}, ).then(res => {
+								this.getData();
+								uni.showToast({
+									title: '新增文件夹成功',
+									icon: 'icon'
+								})
+							})
 							close();
+							this.newdirname = '';
+							// //模拟请求服务器，这里先增加到list数组中
+							// this.list.push({
+							// 	type: 'dir',
+							// 	name: this.newdirname,
+							// 	create_time: '2020-10-22 17:00',
+							// 	checked: false
+							// });
+							// uni.showToast({
+							// 	title: '新建文件夹成功',
+							// 	icon: 'none'
+							// });
+							// close();
 						});
 						break;
 					default:
