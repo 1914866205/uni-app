@@ -481,17 +481,17 @@
 			},
 			//搜索功能，关键字为空就走请求所有数据的接口，
 			//否则就将文本框实时输入的内容作为关键词搜索
-			// search(e) {
-			// 	if (e.detail.value == '') {
-			// 		return this.getData();
-			// 	}
-			// 	this.$H.get('/file/search?keyword=' + e.detail.value, {
-			// 		token: true
-			// 	}).then(
-			// 		res => {
-			// 			this.list = this.formatList(res.rows)
-			// 		})
-			// }
+			search(e) {
+				if (e.detail.value == '') {
+					return this.getData();
+				}
+				this.$H.get('/file/search?keyword=' + e.detail.value, {
+					token: true
+				}).then(
+					res => {
+						this.list = this.formatList(res.rows)
+					})
+			}
 		},
 		computed: {
 			//两个计算属性，事实根据当前dirs数组的变化，file_id计算属性取得应该传到后端的file_id参数（
