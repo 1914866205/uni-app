@@ -402,6 +402,9 @@
 							close();
 						})
 						break;
+					case '下载':
+						this.download();
+						break;
 					default:
 						break;
 				}
@@ -466,6 +469,52 @@
 					default:
 						break;
 				}
+			},
+			//下载
+			download() {
+				this.checkList.forEach(item => {
+					if (item.isdir === 0) {
+						let key = this.genID(8);
+						let obj = {
+							name: item.name,
+							type: item.type,
+							size: item.size,
+							key,
+							progress: 0,
+							status: true,
+							created_time: new Date().getTime()
+						};
+						//创建下载任务
+						this.$store.dispatch('createDownLoadJob', obj);
+						let url = item.url;
+						let d = uni.downloadFile({
+							url,
+							success: res => {
+								if (res.statusCode === 200) {
+									console.log('下载成功', res);
+									// #ifdef H5
+									uni.saveFile({
+										tempFilePath: item.tempFilePath
+									});
+									// #endif
+								}
+							}
+						})
+						d.onProgressUpdate(res => {
+							this.$store.dispatch('updateDownLoadJob', {
+								progress: res.progress,
+								status: true,
+								key
+							})
+						})
+					}
+				});
+
+				uni.showToast({
+					title: '已下载任务',
+					icon: 'none'
+				})
+				this.handleCheckAll(false)
 			},
 			//打开添加操作条
 			openAddDialog() {

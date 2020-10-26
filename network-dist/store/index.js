@@ -24,6 +24,30 @@ export default new Vuex.Store({
 		token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJudHQxMjMiLCJuaWNrbmFtZSI6IiIsImVtYWlsIjoiIiwicGFzc3dvcmQiOiJiY2IxNWY4MjE0NzliNGQ1NzcyYmQwY2E4NjZjMDBhZDVmOTI2ZTM1ODA3MjA2NTljYzgwZDM5YzlkMDk4MDJhIiwiYXZhdGFyIjoiaHR0cHM6Ly9zczEuYmRzdGF0aWMuY29tLzcwY0Z2WFNoX1ExWW54R2twb1dLMUhGNmhoeS9pdC91PTI2MTQwOTIwNCwxMzQ1MTE0NjI5JmZtPTI2JmdwPTAuanBnIiwicGhvbmUiOiIiLCJzZXgiOiLnlLciLCJkZXNjIjoiIiwidG90YWxfc2l6ZSI6MTA0ODU3NjAsInVzZWRfc2l6ZSI6NDQ5MywiY3JlYXRlZF90aW1lIjoiMjAyMC0xMC0yM1QwOToyNjozNi4wMDBaIiwidXBkYXRlZF90aW1lIjoiMjAyMC0xMC0yNFQxNzoxNDo1MS4wMDBaIiwiaWF0IjoxNjAzNjgxMzM3fQ.uq-mXBi6HFN0xEwiGwtqqpRe4jAhZJyxxMYdCNiLu8A",
 	},
 	actions: {
+		//创建一个下载任务
+		createDownLoadJob({
+			state
+		},obj){
+			state.downlist.unshift(obj)
+			uni.setStorage({
+				key:'downlist_'+state.user.id,
+				data:JSON.stringify(state.downlist)
+			})
+		},
+		//更新下载任务进度
+		updateDownLoadJob({
+			state
+		},obj){
+			let i =state.downlist.findIndex(item=>item.key===obj.key)
+			if(i!=-1){
+				state.downlist[i].progress=obj.progress
+				state.downlist[i].status=obj.status
+				uni.setStorage({
+					key:"downlist_"+state.user.id,
+					data:JSON.stringify(state.downlist)
+				})
+			}
+		},
 		initList({state}) {
 			if (state.user) {
 				// 将数据存储在本地缓存中指定的 key 中，会覆盖掉原来该 key 对应的内容，这是一个异步接口。
