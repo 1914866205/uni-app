@@ -2918,7 +2918,11 @@ var render = function() {
                             staticStyle: { height: "60rpx" },
                             attrs: { _i: "9-" + $31 }
                           },
-                          [_vm._v("文件下载至: storage/xxxx/xxxx")]
+                          [
+                            _vm._v(
+                              "文件下载至: /Android/data/io.dcloud.Hbuilder/"
+                            )
+                          ]
                         ),
                         _c(
                           "v-uni-view",

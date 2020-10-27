@@ -155,6 +155,17 @@ export default new Vuex.Store({
 					}
 				}
 			});
+		},
+		//清除传输列表
+		clearList({
+			state
+		}){
+			if(state.user){
+				uni.removeStorageSync("downlist_"+state.user.id)
+				uni.removeStorageSync("uploadList_"+state.user.id)
+				state.uploadList=[]
+				state.downlist=[]
+			}
 		}
 	}
 })

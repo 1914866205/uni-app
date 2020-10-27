@@ -17,7 +17,7 @@
 					<!-- 下载列表 -->
 					<template v-if="index===0">
 						<view style="height: 60rpx;" class="bg-light flex align-center font-sm px-2 text-muted">
-							文件下载至: storage/xxxx/xxxx
+							文件下载至: /Android/data/io.dcloud.Hbuilder/
 						</view>
 						<view class="p-2 border-bottom border-light-secondary font text-muted">
 							下载中{{downing.length}}
@@ -136,19 +136,19 @@
 			changeTab(index) {
 				this.tabIndex = index;
 			},
-			onNavigationBarButtonTab(){
-				uni.showModel({
-					content:'是否要清除传输记录？',
-					success:res=>{
-						if(res.confirm){
+			onNavigationBarButtonTap() {
+				uni.showModal({
+					content: '是否要清除传输记录？',
+					success: res => {
+						if (res.confirm) {
 							this.$store.dispatch('clearList');
 							uni.showToast({
-								title:'清除成功',
-								icon:'none'
-							})
+								title: '清除成功',
+								icon: 'none'
+							});
 						}
 					}
-				})
+				});
 			}
 		}
 	}
