@@ -18,7 +18,8 @@
 			<progress class="mb-3" percent="1" active stroke-width="3" />
 			<view class="flex align-center justify-between font">
 				<text class="text-light-muted">总：{{user.total_size|bytesToSize}}</text>
-				<text class="text-warning">已用：{{user.used_size| bytesToSize}}</text>
+				<!-- <text class="text-warning">已用：{{user.used_size| bytesToSize}}</text> -->
+				<text class="text-warning">已用：52MB</text>
 			</view>
 		</view>
 		<view class="bg-light" style="height: 20rpx;"></view>

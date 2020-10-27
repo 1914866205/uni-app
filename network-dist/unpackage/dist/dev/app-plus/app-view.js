@@ -3389,7 +3389,7 @@ var render = function() {
               _c(
                 "v-uni-text",
                 { staticClass: _vm._$g(13, "sc"), attrs: { _i: 13 } },
-                [_vm._v("已用：" + _vm._$g(13, "t0-0"))]
+                [_vm._v("已用：52MB")]
               )
             ],
             1

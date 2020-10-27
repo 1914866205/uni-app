@@ -1,11 +1,14 @@
 export default {
 	// 全局配置
 common: {
+	//除了H5
     // #ifndef H5
      baseUrl: "https://nttneiwang.utools.club",
     // #endif
+	
+	// H5
     // #ifdef H5
-    baseUrl: "/api",
+    // baseUrl: "/api",
     // #endif
     header: {
       'Content-Type': 'application/json;charset=UTF-8',

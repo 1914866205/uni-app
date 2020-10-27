@@ -413,26 +413,25 @@
 						break;
 				}
 			},
-			share(){
-				this.$H.post('/share/create',
-				{
-					file_id:this.checkList[0].id
-				},{
-					token:true
-				}).then(res=>{
+			share() {
+				this.$H.post('/share/create', {
+					file_id: this.checkList[0].id
+				}, {
+					token: true
+				}).then(res => {
 					uni.showModal({
-						content:res,
-						showCancel:false,
-						success:result=>{
+						content: res,
+						showCancel: false,
+						success: result => {
 							//不能再用res，会和前面冲突
 							// #ifndef H5
 							uni.setClipboardData({
 								//复制到剪切板
-								data:res,
-								success:()=>{
+								data: res,
+								success: () => {
 									uni.showToast({
-										title:'复制成功',
-										icon:'none'
+										title: '复制成功',
+										icon: 'none'
 									})
 								}
 							});
@@ -445,9 +444,32 @@
 			handleAddEvent(item) {
 				this.$refs.add.close();
 				switch (item.name) {
-					case '上传文件':
+					case "上传视频":
+						uni.chooseVideo({
+							count: 1,
+							success: res => {
+								console.log(res);
+								let name = "";
+								let size = 0;
+								//#ifndef H5
+								name = res.tempFilePath.substring(res.tempFilePath.lastIndexOf("/") + 1);
+								size = res.size;
+								//#endif
+								this.upload({
+									path: res.tempFilePath,
+									name,
+									type: "video",
+									size
+								});
+							}
+						});
 						break;
-					case '上传视频':
+					case '上传文件':
+						// uni.chooseAddress({
+						// 	success: item => {
+						// 		this.upload(res.tempFile, 'file');
+						// 	}
+						// })
 						break;
 					case '上传图片':
 						//选择图片，限制为9张
