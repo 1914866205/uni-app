@@ -27,63 +27,69 @@ export default new Vuex.Store({
 		//创建一个下载任务
 		createDownLoadJob({
 			state
-		},obj){
+		}, obj) {
 			state.downlist.unshift(obj)
 			uni.setStorage({
-				key:'downlist_'+state.user.id,
-				data:JSON.stringify(state.downlist)
+				key: 'downlist_' + state.user.id,
+				data: JSON.stringify(state.downlist)
 			})
 		},
 		//更新下载任务进度
 		updateDownLoadJob({
 			state
-		},obj){
-			let i =state.downlist.findIndex(item=>item.key===obj.key)
-			if(i!=-1){
-				state.downlist[i].progress=obj.progress
-				state.downlist[i].status=obj.status
+		}, obj) {
+			let i = state.downlist.findIndex(item => item.key === obj.key)
+			if (i != -1) {
+				state.downlist[i].progress = obj.progress
+				state.downlist[i].status = obj.status
 				uni.setStorage({
-					key:"downlist_"+state.user.id,
-					data:JSON.stringify(state.downlist)
+					key: "downlist_" + state.user.id,
+					data: JSON.stringify(state.downlist)
 				})
 			}
 		},
-		initList({state}) {
+		initList({
+			state
+		}) {
 			if (state.user) {
 				// 将数据存储在本地缓存中指定的 key 中，会覆盖掉原来该 key 对应的内容，这是一个异步接口。
 				let d = uni.getStorageSync("downlist_" + state.user.id)
 				let u = uni.getStorageSync("uploadList_" + state.user.id)
-					state.downlist = d ? JSON.parse(d) : []
-					state.uploadList = u ? JSON.parse(u) : []
+				state.downlist = d ? JSON.parse(d) : []
+				state.uploadList = u ? JSON.parse(u) : []
 			}
 		},
 		//创建一个上传任务
-		createUploadJob({state},obj){
+		createUploadJob({
+			state
+		}, obj) {
 			//添加到上传队列的最前面
 			state.uploadList.unshift(obj)
 			//异步设置本地存储，记录键值对为 上传者和上传内容
 			uni.setStorage({
-				key:"uploadList_"+state.user.id,
-				data:JSON.stringify(state.uploadList)
+				key: "uploadList_" + state.user.id,
+				data: JSON.stringify(state.uploadList)
 			})
 		},
 		//更新上传任务
-		updateUploadJob({state},obj){
+		updateUploadJob({
+			state
+		}, obj) {
 			//在上传队列中查找该用户的上传任务
-			let i =state.uploadList.findIndex(item=>item.key===obj.key)
+			let i = state.uploadList.findIndex(item => item.key === obj.key)
 			//如果存在
-			if(i!==-1){
+			if (i !== -1) {
 				//更新proress属性的值和上传状态的值
-				state.uploadList[i].progress=obj.progress
-				state.uploadList[i].status=obj.status
+				state.uploadList[i].progress = obj.progress
+				state.uploadList[i].status = obj.status
 				//异步更新本地存储
 				uni.setStorage({
-					key:"uploadList_"+state.user.id,
-					date:JSON.stringify(state.uploadList)
+					key: "uploadList_" + state.user.id,
+					date: JSON.stringify(state.uploadList)
 				})
 			}
 		},
-		
+
 		logout({
 			state
 		}) {
@@ -123,47 +129,32 @@ export default new Vuex.Store({
 		},
 		getShareUrl({
 			state
-		}){
-			// #ifdef H5
+		}) {
+			// #ifndef H5
 			uni.getClipboardData({
-				success:(res)=>{
-					//通过前面结果可以看到剪贴的连接是以 http://127.0.0.1:7001/开头的，接口上线了这个地址需要修改
-					if(res.data.includes('http://127.0.0.1:/')){
-						//需要从完整的链接截取出来key的值，数据库应该知道真正的链接就是和这个相关的
-						let key =res.data.substring(res.data.lastIndexOf('\/')+1,res.data.length)
-						if(!key){
+				success: (res) => {
+					console.log(res.data)
+					if (res.data.includes('http://127.0.0.1:7001')) {
+						let key = res.data.substring(res.data.lastIndexOf('\/') + 1, res.data.length)
+						if (!key) {
 							return
 						}
 						uni.showModal({
-							content:'检测到有分享内容，是否打开?',
-							success:(res)=>{
-								if(res.confirm){
+							content: '检测到有分享内容，是否打开？',
+							success: (res) => {
+								if (res.confirm) {
 									uni.navigateTo({
-										url:"/pages/shareurl/shareurl?key="+key
+										url: "/pages/shareurl/shareurl?key=" + key
 									})
-									//情况剪贴板
-									uni.SetClipboardData({
-										data:''
-									})
+									uni.setClipboardData({
+										data: ''
+									});
 								}
 							}
-						})
+						});
 					}
 				}
-			})
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+			});
 		}
 	}
 })

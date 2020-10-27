@@ -3,10 +3,17 @@
 		onLaunch: function() {
 			console.log('App Launch')
 			//初始化用户信息
-			this.$store.dispatch('initUser')
+			this.$store.dispatch('initUser');
+			//初始化任务列表
+			this.$store.dispatch('initList');
+			
 		},
 		onShow: function() {
 			console.log('App Show')
+			if(this.$store.state.user){
+				console.log("粘贴板")
+				this.$store.dispatch('getShareUrl')
+			}
 		},
 		onHide: function() {
 			console.log('App Hide')
