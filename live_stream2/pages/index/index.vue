@@ -1,14 +1,15 @@
 <template>
 	<view class="content">
-		<image class="logo" src="/static/logo.png"></image>
-		<view class="text-area">
-			<text class="title">{{title}}</text>
-		</view>
+		<tab></tab>
 	</view>
 </template>
 
 <script>
+	import tab from '../../components/common/tab.vue'
 	export default {
+		components:{
+			tab
+		},
 		data() {
 			return {
 				title: 'Hello'
