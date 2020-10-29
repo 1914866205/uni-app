@@ -17,7 +17,28 @@
 			<show-list class="list-item" v-for="(item,index) in showlists" :key='index' :item="item" @click="openLive()">
 			</show-list>
 		</view>
-		<!-- 列表 -->
+		<!-- 底部 -->
+		<view style="height: 120rpx;" class="flex align-center justify-between fixed-bottom">
+			<view class="px-2">
+				<view class="btn px-3">
+					<text class="text-white font">说点什么...</text>
+				</view>
+			</view>
+			<view class="flex align-center">
+				<view class="btn btn-icon">
+					<text class="iconfont text-white" style="font-size: 40px;">&#xe633;</text>
+				</view>
+				<view class="btn btn-icon bg-warning">
+					<text class="iconfont">&#xe67c;</text>
+				</view>
+				<view class="iconfont text-white">
+					<text class="iconfont text-white"">&#xe7cd;</text>
+				</view>
+				<view class="btn btn-icon">
+					<text class="iconfont text-white"">&#xe607;</text>
+				</view>
+			</view>
+		</view>
 
 	</view>
 </template>
@@ -88,35 +109,16 @@
 </script>
 
 <style>
-	.list-item {
-		width: 375rpx;
-		heith: 375rpx;
-		padding: 5rpx;
-		box-sizing: border-box;
-		position: relative;
+.btn{
+	height: 80rpx;
+	border-radius: 100rpx;
+	background-color: rgba(255,255,255,0.12);
+	align-items: center;
+	justify-content: center;
+}
+	.btn-icon{
+		width: 80rpx;
+		margin-right: 20rpx;
+		
 	}
-
-	/**
-	 * 		<view class="flex flex-wrap">
-			<view class="list-item" v-for="i in 10" :key='i' @click="openLive">
-				<image src="../../static/bg.jpg" style="width: 365rpx;height: 365rpx;" class="rounded" mode="aspectFill"></image>
-				<view class="rounded-circle px-2 flex align-center" style="position:absolute;
-				 left: 15rpx;top:15rpx;background-color: rgba(0,0,0,0.4);">
-					<!-- 观看人数 -->
-					<text class="iconfont iconbizhongguanli text-warning mr-1"></text>
-					<text class="text-white font">13597</text></view>
-				<view class="rounded-circle px-2 flex align-center" style="position: absolute;right: 15rpx;
-				 top: 15rpx;background-color: rgba(0,0,0,0.4);">
-					<text class="font-sm text-white">人气：
-						<text class="text-white font-sm">999kg</text>
-					</text>
-				</view>
-				<!-- 直播状态 -->
-				<view class="rounded-circle px-2 flex align-center" style="position: absolute;right: 15rpx;bottom: 15rpx;background-color: rgba(0,0,0,0.4);">
-					<text style="width: 20rpx;height: 20rpx;" class="rounded-circle bg-danger mr-1"></text>
-					<text class="text-white font-sm">直播中</text>
-				</view>
-			</view>
-		</view>
-	 */
 </style>

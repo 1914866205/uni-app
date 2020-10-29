@@ -2,8 +2,13 @@
 	export default {
 		onLaunch: function() {
 			console.log('App Launch')
+			const domModule = weex.requireModule('dom')
+			domModule.addRule('fontFace', {
+				'fontFamily': "iconfont",
+				'src': "url('http://at.alicdn.com/t/font_1859985_7mxozsfdvib.ttf')"
+			});
 			//监听底部导航中间的凸起按钮
-			uni.onTabBarMidButtonTap(()=>{
+			uni.onTabBarMidButtonTap(() => {
 				console.log('点击了中间按钮')
 			})
 		},
@@ -22,6 +27,8 @@
 	@import url("/common/common.css");
 	/*引入free样式库*/
 	@import url("/common/free.css");
+	/* #ifndef  APP-PLUS-NVUE */
 	/*引入图标库*/
 	@import url("/common/icon.css");
+	/* #endif */
 </style>
