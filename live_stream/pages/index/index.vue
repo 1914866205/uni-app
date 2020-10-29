@@ -32,7 +32,7 @@
 					<text style="width: 20rpx;height: 20rpx;" class="rounded-circle bg-danger mr-1"></text>
 					<text class="text-white font-sm">直播中</text>
 				</view>
-			</view>
+			</view>a
 		</view>
 	</view>
 </template>

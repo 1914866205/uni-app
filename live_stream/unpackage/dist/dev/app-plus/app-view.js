@@ -277,126 +277,129 @@ var render = function() {
       _c(
         "v-uni-view",
         { staticClass: _vm._$g(8, "sc"), attrs: { _i: 8 } },
-        _vm._l(10, function(i, $10, $20, $30) {
-          return _c(
-            "v-uni-view",
-            {
-              key: i,
-              staticClass: _vm._$g("9-" + $30, "sc"),
-              attrs: { _i: "9-" + $30 },
-              on: {
-                click: function($event) {
-                  return _vm.$handleViewEvent($event)
+        [
+          _vm._l(10, function(i, $10, $20, $30) {
+            return _c(
+              "v-uni-view",
+              {
+                key: i,
+                staticClass: _vm._$g("9-" + $30, "sc"),
+                attrs: { _i: "9-" + $30 },
+                on: {
+                  click: function($event) {
+                    return _vm.$handleViewEvent($event)
+                  }
                 }
-              }
-            },
-            [
-              _c("v-uni-image", {
-                staticClass: _vm._$g("10-" + $30, "sc"),
-                staticStyle: { width: "365rpx", height: "365rpx" },
-                attrs: {
-                  src: _vm._$g("10-" + $30, "a-src"),
-                  mode: "aspectFill",
-                  _i: "10-" + $30
-                }
-              }),
-              _c(
-                "v-uni-view",
-                {
-                  staticClass: _vm._$g("11-" + $30, "sc"),
-                  staticStyle: {
-                    position: "absolute",
-                    left: "15rpx",
-                    top: "15rpx",
-                    "background-color": "rgba(0,0,0,0.4)"
-                  },
-                  attrs: { _i: "11-" + $30 }
-                },
-                [
-                  _c("v-uni-text", {
-                    staticClass: _vm._$g("12-" + $30, "sc"),
-                    attrs: { _i: "12-" + $30 }
-                  }),
-                  _c(
-                    "v-uni-text",
-                    {
-                      staticClass: _vm._$g("13-" + $30, "sc"),
-                      attrs: { _i: "13-" + $30 }
+              },
+              [
+                _c("v-uni-image", {
+                  staticClass: _vm._$g("10-" + $30, "sc"),
+                  staticStyle: { width: "365rpx", height: "365rpx" },
+                  attrs: {
+                    src: _vm._$g("10-" + $30, "a-src"),
+                    mode: "aspectFill",
+                    _i: "10-" + $30
+                  }
+                }),
+                _c(
+                  "v-uni-view",
+                  {
+                    staticClass: _vm._$g("11-" + $30, "sc"),
+                    staticStyle: {
+                      position: "absolute",
+                      left: "15rpx",
+                      top: "15rpx",
+                      "background-color": "rgba(0,0,0,0.4)"
                     },
-                    [_vm._v("13597")]
-                  )
-                ],
-                1
-              ),
-              _c(
-                "v-uni-view",
-                {
-                  staticClass: _vm._$g("14-" + $30, "sc"),
-                  staticStyle: {
-                    position: "absolute",
-                    right: "15rpx",
-                    top: "15rpx",
-                    "background-color": "rgba(0,0,0,0.4)"
+                    attrs: { _i: "11-" + $30 }
                   },
-                  attrs: { _i: "14-" + $30 }
-                },
-                [
-                  _c(
-                    "v-uni-text",
-                    {
-                      staticClass: _vm._$g("15-" + $30, "sc"),
-                      attrs: { _i: "15-" + $30 }
+                  [
+                    _c("v-uni-text", {
+                      staticClass: _vm._$g("12-" + $30, "sc"),
+                      attrs: { _i: "12-" + $30 }
+                    }),
+                    _c(
+                      "v-uni-text",
+                      {
+                        staticClass: _vm._$g("13-" + $30, "sc"),
+                        attrs: { _i: "13-" + $30 }
+                      },
+                      [_vm._v("13597")]
+                    )
+                  ],
+                  1
+                ),
+                _c(
+                  "v-uni-view",
+                  {
+                    staticClass: _vm._$g("14-" + $30, "sc"),
+                    staticStyle: {
+                      position: "absolute",
+                      right: "15rpx",
+                      top: "15rpx",
+                      "background-color": "rgba(0,0,0,0.4)"
                     },
-                    [
-                      _vm._v("人气："),
-                      _c(
-                        "v-uni-text",
-                        {
-                          staticClass: _vm._$g("16-" + $30, "sc"),
-                          attrs: { _i: "16-" + $30 }
-                        },
-                        [_vm._v("999kg")]
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _c(
-                "v-uni-view",
-                {
-                  staticClass: _vm._$g("17-" + $30, "sc"),
-                  staticStyle: {
-                    position: "absolute",
-                    right: "15rpx",
-                    bottom: "15rpx",
-                    "background-color": "rgba(0,0,0,0.4)"
+                    attrs: { _i: "14-" + $30 }
                   },
-                  attrs: { _i: "17-" + $30 }
-                },
-                [
-                  _c("v-uni-text", {
-                    staticClass: _vm._$g("18-" + $30, "sc"),
-                    staticStyle: { width: "20rpx", height: "20rpx" },
-                    attrs: { _i: "18-" + $30 }
-                  }),
-                  _c(
-                    "v-uni-text",
-                    {
-                      staticClass: _vm._$g("19-" + $30, "sc"),
-                      attrs: { _i: "19-" + $30 }
+                  [
+                    _c(
+                      "v-uni-text",
+                      {
+                        staticClass: _vm._$g("15-" + $30, "sc"),
+                        attrs: { _i: "15-" + $30 }
+                      },
+                      [
+                        _vm._v("人气："),
+                        _c(
+                          "v-uni-text",
+                          {
+                            staticClass: _vm._$g("16-" + $30, "sc"),
+                            attrs: { _i: "16-" + $30 }
+                          },
+                          [_vm._v("999kg")]
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                ),
+                _c(
+                  "v-uni-view",
+                  {
+                    staticClass: _vm._$g("17-" + $30, "sc"),
+                    staticStyle: {
+                      position: "absolute",
+                      right: "15rpx",
+                      bottom: "15rpx",
+                      "background-color": "rgba(0,0,0,0.4)"
                     },
-                    [_vm._v("直播中")]
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          )
-        }),
-        1
+                    attrs: { _i: "17-" + $30 }
+                  },
+                  [
+                    _c("v-uni-text", {
+                      staticClass: _vm._$g("18-" + $30, "sc"),
+                      staticStyle: { width: "20rpx", height: "20rpx" },
+                      attrs: { _i: "18-" + $30 }
+                    }),
+                    _c(
+                      "v-uni-text",
+                      {
+                        staticClass: _vm._$g("19-" + $30, "sc"),
+                        attrs: { _i: "19-" + $30 }
+                      },
+                      [_vm._v("直播中")]
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          }),
+          _vm._v("a")
+        ],
+        2
       )
     ],
     1
