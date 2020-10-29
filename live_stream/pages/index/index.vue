@@ -17,28 +17,7 @@
 			<show-list class="list-item" v-for="(item,index) in showlists" :key='index' :item="item" @click="openLive()">
 			</show-list>
 		</view>
-		<!-- 底部 -->
-		<view style="height: 120rpx;" class="flex align-center justify-between fixed-bottom">
-			<view class="px-2">
-				<view class="btn px-3">
-					<text class="text-white font">说点什么...</text>
-				</view>
-			</view>
-			<view class="flex align-center">
-				<view class="btn btn-icon">
-					<text class="iconfont text-white" style="font-size: 40px;">&#xe633;</text>
-				</view>
-				<view class="btn btn-icon bg-warning">
-					<text class="iconfont">&#xe67c;</text>
-				</view>
-				<view class="iconfont text-white">
-					<text class="iconfont text-white"">&#xe7cd;</text>
-				</view>
-				<view class="btn btn-icon">
-					<text class="iconfont text-white"">&#xe607;</text>
-				</view>
-			</view>
-		</view>
+
 
 	</view>
 </template>
@@ -109,16 +88,5 @@
 </script>
 
 <style>
-.btn{
-	height: 80rpx;
-	border-radius: 100rpx;
-	background-color: rgba(255,255,255,0.12);
-	align-items: center;
-	justify-content: center;
-}
-	.btn-icon{
-		width: 80rpx;
-		margin-right: 20rpx;
-		
-	}
+
 </style>
