@@ -108,7 +108,7 @@
 								</swiper-item>
 							</swiper>
 							<view style="height: 100rpx;" class="flex align-center justify-end">
-								<view class="flex align-center justify-center py-2 px-2 mr-3 rounded bg-warning">
+								<view class="flex align-center justify-center py-2 px-2 mr-3 rounded bg-warning" @click="openCoin">
 									<text class="font">充值</text>
 								</view>
 								<view class="flex align-center justify-center py-2 px-2 mr-3 rounded bg-main" @click="sendGift">
@@ -143,7 +143,11 @@
 			this.gifts = myGifts
 		},
 		methods: {
-
+			openCoin(){
+				uni.navigateTo({
+					url:'../coin/coin'
+				})
+			},
 			goback() {
 				uni.navigateBack({
 
