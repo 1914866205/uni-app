@@ -8,11 +8,11 @@
 				</image>
 			</view>
 			<view class="flex-1 flex flex-column justify-center">
-				<text class="text-white font">{{item.usename}}</text>
+				<text class="text-white font">{{item.username}}</text>
 				<text class="text-white font-sm">送{{item.gift_name}}</text>
 			</view>
 			<view class="p">
-				<image :src="item.gift_image" style="width: 70rox;height: 70rpx;" class="rounded-circle"></image>
+				<image :src="item.gift_image" style="width: 70rpx;height: 70rpx;" class="rounded-circle"></image>
 			</view>
 		</view>
 		<text class="text-warning font-lg ml-1">X{{item.num}}</text>
@@ -25,7 +25,7 @@
 	export default{
 		data(){
 			return{
-				defaultAvatar:"/status/logo.png", //默认头像***************************************************
+				defaultAvatar:"../../statis/logo.png", //默认头像***************************************************
 				gifts:[]//礼物数组
 			}
 		},

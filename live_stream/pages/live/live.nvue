@@ -9,10 +9,10 @@
 			<view style="hight:80rpx;" class="px-2 flex justify-between align-center">
 				<view style="width: 325rpx;background-color: rgbc(0,0,0,0.4);" class="flex rounded-circle">
 					<view class="p">
-						<image src="../../static/logo.png" style="width: 70rpx;height: 70rpx;" class="rounded-circle"></image>
+						<image src="../../static/ntt.jpg" style="width: 70rpx;height: 70rpx;" class="rounded-circle"></image>
 					</view>
 					<view class="flex-1 flex flex-column justify-center">
-						<text class="text-white font">主播昵称</text>
+						<text class="text-white font">悲歌</text>
 						<text class="text-white font-sm">100</text>
 					</view>
 					<view class="p">
@@ -55,9 +55,7 @@
 
 
 		<!-- 弹幕 -->
-		<view style="position: fixed; bottom: 120rpx;left: 0;right: 0;width: 750rpx;height: 300rpx;" class="bg-main">
-			<text>弹幕区</text>
-		</view>
+		<f-danmu></f-danmu>
 
 
 
@@ -91,6 +89,7 @@
 
 <script>
 	import fGift from '@/components/live/f-gift.vue'
+	import fDanmu from '@/components/live/f-danmu.vue'
 	export default {
 		data() {
 			return {
@@ -99,7 +98,8 @@
 			}
 		},
 		components: {
-			fGift
+			fGift,
+			fDanmu
 		},
 		onLoad() {
 			let res = uni.getSystemInfoSync()
@@ -115,12 +115,11 @@
 		mounted() {
 			//送礼物演示
 			setInterval(() => {
-				console.log("定时器执行")
 				this.$refs.gift.send({
-					username: "发送人",
-					avatar: "",
+					username: "涛涛",
+					avatar: "../../static/06.jpg",
 					gift_name: "蛋糕",
-					gift_image: "/static/gift/3.png",
+					gift_image: "../../static/gift/3.png",
 					num: 1
 				})
 			}, 3000)
