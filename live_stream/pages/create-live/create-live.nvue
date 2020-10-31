@@ -27,7 +27,7 @@
 					<text class="iconfont text-white mb-1">&#xe605;</text>
 					<text class="text-white font">翻转</text>
 				</view>
-				<view style="height: 120rpx;width: 100rpx;" class="flex flex-column align-center justify-center">
+				<view style="height: 120rpx;width: 100rpx;" class="flex flex-column align-center justify-center" @click="opebPopup('mode')">
 					<text class="iconfont text-white mb-1">&#xe60c;</text>
 					<text class="text-white font">画质</text>
 				</view>
@@ -48,9 +48,32 @@
 
 
 	</view>
+
+
+	<uni-popup type="bottom" ref="popup">
+		<view class="bg-white">
+			<view class="flex align-center justify-center border-bottom" style="height: 90rpx;">
+				<text class="font-md">{{popupTitle}}</text>
+			</view>
+			<!-- 画质选择 -->
+			<view v-if="popupType==='mode'">
+				<view class="flex align-center justify-center py-2" v-for="(item,index) in modeList" :key="index" :class="mode===item.type?'bg-main':''"
+				 @click="chooseMode(item)">
+					<text class="font-md" :class="mode===item.type? 'text-white':''">{{item.desc}}</text>
+				</view>
+			</view>
+			<view class="f-divider"></view>
+			<view class="flex align-center justify-center" style="height: 90rpx;" hover-class="bg-light">
+				<text class="font-md">取消</text></view>
+		</view>
+	</uni-popup>
 </template>
 <script>
+	import uniPopup from '@/components/uni-ui/uni-popup/uni-popup.vue'
 	export default {
+		components: {
+			uniPopup
+		},
 		data() {
 			return {
 				url: '', //直播服务器地址 ，暂空
@@ -60,7 +83,18 @@
 				whiteness: 0, //美白度
 				windowHeight: 0, //窗体高度
 				context: null, // 上下文
-				statusBarHeight: 0
+				statusBarHeight: 0,
+				modeList:[{
+					type:"SD",
+					desc:"标清"
+				},{
+					type:"HD",
+					desc:"高清"
+				},{
+					type:"FHD",
+					desc:"超清"
+				}],
+				popupType:"mode"
 			}
 		},
 		onLoad() {
@@ -74,7 +108,20 @@
 			this.startPreview()
 		},
 		methods: {
-			//开启预览
+			//画质选择
+			chooseMode(item){
+				this.mode=item.type
+				uni.showToast({
+					title:'画质切换为'+item.desc,
+					icon:'none'
+				});
+				this.$refs.popup.close()
+			},
+			openPopup(type){
+				this.popupType=type
+				this.$refs.popup.open()
+			},
+			//开始预览
 			startPreview() {
 				this.context.startPreview({
 					success: (e) => {
