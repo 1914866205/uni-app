@@ -31,11 +31,11 @@
 					<text class="iconfont text-white mb-1">&#xe60c;</text>
 					<text class="text-white font">画质</text>
 				</view>
-				<view style="height: 120rpx;width: 100rpx;" class="flex flex-column align-center justify-center">
+				<view style="height: 120rpx;width: 100rpx;" class="flex flex-column align-center justify-center" @click="openPopup('beauty')">
 					<text class="iconfont text-white mb-1">&#xe632;</text>
 					<text class="text-white font">美颜</text>
 				</view>
-				<view style="height: 120rpx;width: 100rpx;" class="flex flex-column align-center justify-center">
+				<view style="height: 120rpx;width: 100rpx;" class="flex flex-column align-center justify-center" @click="openPopup('whiteness')">
 					<text class="iconfont text-white mb-1">&#xe631;</text>
 					<text class="text-white font">美白</text>
 				</view>
@@ -55,6 +55,7 @@
 			<view class="flex align-center justify-center border-bottom" style="height: 90rpx;">
 				<text class="font-md">{{popupTitle}}</text>
 			</view>
+
 			<!-- 画质选择 -->
 			<view v-if="popupType==='mode'">
 				<view class="flex align-center justify-center py-2" v-for="(item,index) in modeList" :key="index" :class="mode===item.type?'bg-main':''"
@@ -62,6 +63,18 @@
 					<text class="font-md" :class="mode===item.type? 'text-white':''">{{item.desc}}</text>
 				</view>
 			</view>
+
+			<!-- 美颜 -->
+			<view v-else-if="popupType==='beauty'">
+				<slider :min="0" :max="9" :value="beauty" :block-size="18" show-value @change="handleSliderChange" />
+			</view>
+
+			<!-- 美白 -->
+			<view v-else>
+				<slider :min="0" :max="9" :step="1" value="whiteness" :block-size="18" show-value @change="handleSliderChange" />
+			</view>
+
+
 			<view class="f-divider"></view>
 			<view class="flex align-center justify-center" style="height: 90rpx;" hover-class="bg-light">
 				<text class="font-md">取消</text></view>
@@ -84,17 +97,17 @@
 				windowHeight: 0, //窗体高度
 				context: null, // 上下文
 				statusBarHeight: 0,
-				modeList:[{
-					type:"SD",
-					desc:"标清"
-				},{
-					type:"HD",
-					desc:"高清"
-				},{
-					type:"FHD",
-					desc:"超清"
+				modeList: [{
+					type: "SD",
+					desc: "标清"
+				}, {
+					type: "HD",
+					desc: "高清"
+				}, {
+					type: "FHD",
+					desc: "超清"
 				}],
-				popupType:"mode"
+				popupType: "mode"
 			}
 		},
 		onLoad() {
@@ -109,16 +122,16 @@
 		},
 		methods: {
 			//画质选择
-			chooseMode(item){
-				this.mode=item.type
+			chooseMode(item) {
+				this.mode = item.type
 				uni.showToast({
-					title:'画质切换为'+item.desc,
-					icon:'none'
+					title: '画质切换为' + item.desc,
+					icon: 'none'
 				});
 				this.$refs.popup.close()
 			},
-			openPopup(type){
-				this.popupType=type
+			openPopup(type) {
+				this.popupType = type
 				this.$refs.popup.open()
 			},
 			//开始预览
@@ -148,6 +161,19 @@
 						this.position = this.position === 'back' ? 'front' : 'back'
 					}
 				})
+			},
+			handleSliderChange(e) {
+				this[this.popupType] = e.detail.value
+			}
+		},
+		computed: {
+			popupTitle() {
+				let o = {
+					mode: "画质",
+					beauty: "美颜",
+					whiteness: "美白",
+				}
+				return o[this.popupType]
 			}
 		}
 	}
