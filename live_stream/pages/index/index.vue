@@ -27,8 +27,7 @@
 	export default {
 		data() {
 			return {
-				showlists: [
-					
+				showlists: [				
 					{
 					bg: 'https://i0.hdslb.com/bfs/archive/734ebccdc06023ea6a41a5aa8a5334fba6229c31.jpg@336w_190h.webp',
 					shower: 9124,
@@ -61,6 +60,7 @@
 				}, 
 				{
 					bg: 'https://i0.hdslb.com/bfs/bangumi/image/0d5843ee93728eebeed99b2a9fe69e1e349465e7.png@87w_88h_1c_100q.webp',
+					url:'',
 					shower: 7524,
 					hot: 999,
 					isLive: true

@@ -57,7 +57,7 @@
 		<f-danmu ref="danmu"></f-danmu>
 
 		<!-- 底部 -->
-		<view style="position: fixed;left: 0;bottom: 0;right: 0;height: 120rpx;" class="fex align-center justify-between">
+		<view style="position: fixed;left: 0;bottom: 0;right: 0;height: 120rpx;" class="flex align-center justify-between">
 			<view class="flex-1 flex flex-column align-center justify-center" v-for="(item,index) in btns" :key="index"
 			@click="handleBottomEvent(item)">
 			
@@ -86,12 +86,12 @@
 
 			<!-- 美颜 -->
 			<view v-else-if="popupType==='beauty'">
-				<slider :min="0" :max="9" :value="beauty" :block-size="18" show-value @change="handleSliderChange" />
+				<slider :min="0" :max="9"   :step="1" :value="beauty" :block-size="18" show-value @change="handleSliderChange" />
 			</view>
 
 			<!-- 美白 -->
 			<view v-else-if="popupType==='whiteness'">
-				<slider :min="0" :max="9" :step="1" value="whiteness" :block-size="18" show-value @change="handleSliderChange" />
+				<slider :min="0" :max="9" :step="1" :value="whiteness" :block-size="18" show-value @change="handleSliderChange" />
 			</view>
 
 			<!-- 更多 -->
@@ -100,15 +100,16 @@
 					<text class="iconfont mb-1">&#xe611;</text>
 					<text class="font">暂停</text>
 				</view>
-				<view class="fex flex-column align-center justify-center" style="width: 150rpx;height: 150rpx;">
+				<view class="fex flex-column align-center justify-center" style="width: 150rpx;height: 150rpx;"@click="back">
 					<text class="iconfont mb-1">&#xe64d;</text>
-					<text class="font">取消</text>
+					<text class="font">退出</text>
 				</view>
 			</view>
 
 			<view class="f-divider"></view>
 			<view class="flex align-center justify-center" style="height: 90rpx;" hover-class="bg-light" @click="closePopup">
-				<text class="font-md">取消</text></view>
+				<text class="font-md">取消</text>
+			</view>
 		</view>
 	</uni-popup>
 	</view>
@@ -154,6 +155,7 @@
 				btns: [{
 						name: '翻转',
 						icon: '\ue605',
+						event:'switchCamera',
 						params: 'switchCamera'
 					},
 					{
