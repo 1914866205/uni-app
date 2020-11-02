@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import $H from '../common/request.js'
 Vue.use(Vuex)
 export default new Vuex.Store({
 	state: {
@@ -16,7 +17,6 @@ export default new Vuex.Store({
 				state.user = JSON.parse(u)
 				state.token = t
 			}
-		}
 	},
 	logout({
 		state
@@ -28,6 +28,8 @@ export default new Vuex.Store({
 		state.token = null
 		uni.removeStorageSync('user')
 		uni.removeStorageSync('token')
+		// console.log(state.user===null?'user为空':state.user)
+		// console.log(state.token===null?'token为空':state.token)
 		uni.reLaunch({
 			url: '/pages/login/login'
 		})

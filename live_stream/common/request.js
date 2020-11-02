@@ -1,23 +1,23 @@
 export default {
 	// 全局配置
-	common: {
-		//除了H5
-		// #ifndef H5
-		baseUrl: "https://nttneiwang.utools.club/api",
-		// #endif
-
-		// H5
-		// #ifdef H5
-		// baseUrl: "/api",
-		// #endif
-		header: {
-			'Content-Type': 'application/json;charset=UTF-8',
-		},
-		data: {},
-		method: 'GET',
-		dataType: 'json',
-		token: false
-	},
+common: {
+	//除了H5
+    // #ifndef H5
+     baseUrl: "https://nttneiwang.utools.club/api",
+    // #endif
+	
+	// H5
+    // #ifdef H5
+    // baseUrl: "/api",
+    // #endif
+    header: {
+      'Content-Type': 'application/json;charset=UTF-8',
+    },
+    data: {},
+    method: 'GET',
+    dataType: 'json',
+    token: false
+  },
 	// 请求返回promise
 	request(options = {}) {
 		// 组织参数

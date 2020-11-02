@@ -21,13 +21,10 @@
 			</view>
 		</view>
 		<view v-else>
-
-
 			<view class="flex flex-column">
 				<text class="font-md">涛涛</text>
 				<text class="font text-muted">醉忆丶无回路</text>
 			</view>
-
 			<view class="ml-auto mr-3">
 				<view class="border border-main rounded flex align-center justify-center p-2" hover-class="bg-light">
 					<text class="text-main font">编辑资料</text>
@@ -54,7 +51,7 @@
 	import fListItem from '@/components/live/f-list-item.vue';
 	import {
 		mapState
-	} from 'vuex';
+	} from 'vuex'
 	export default {
 		components: {
 			fListItem
