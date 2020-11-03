@@ -159,6 +159,14 @@
 			fDanmu,
 			uniPopup
 		},
+		computed: {
+			src() {
+				if (this.detail.key == '' || this.sign == '') {
+					return '';
+				}
+				return `http://nttlive.utools.club/live/${this.detail.key}.flv?sign=${this.sign}`;
+			}
+		},
 		onLoad(option) {
 			this.id = option.id;
 			console.log(">>live.nvue" + this.id)
@@ -186,6 +194,7 @@
 			},
 			//打开输入弹幕的对话框
 			openInput() {
+				console.log("打开输入弹幕的对话框")
 				this.$store.dispatch('authMethod', () => {
 					this.$refs.input.open()
 				})
