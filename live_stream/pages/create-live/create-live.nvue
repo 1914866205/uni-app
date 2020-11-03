@@ -82,8 +82,9 @@
 
 		data() {
 			return {
+				url: 'rtmp://120.26.177.51:1935/live/exp',
+				context: null,
 				// 直播服务器地址，暂空
-				url: '',
 				// 标清模式
 				mode: 'SD',
 				// 是否启用摄像头
@@ -145,6 +146,11 @@
 				uni.navigateTo({
 					url: "../live-room/live-room"
 				})
+				this.context.start({
+					success: a => {
+						console.log('livePusher.start:' + JSON.stringify(a));
+					}
+				});
 			},
 			close() {
 				this.$refs.popup.close();

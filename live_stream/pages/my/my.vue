@@ -25,7 +25,7 @@
 				<text class="font-md">涛涛</text>
 				<text class="font text-muted">醉忆丶无回路</text>
 			</view>
-			<view class="ml-auto mr-3">
+			<view class="ml-auto mr-3" @click="settings">
 				<view class="border border-main rounded flex align-center justify-center p-2" hover-class="bg-light">
 					<text class="text-main font">编辑资料</text>
 				</view>
@@ -74,6 +74,11 @@
 		// 	this.statusBarHeight = res.statusBarHeight
 		// },
 		methods: {
+			settings(){
+				this.authJump({
+					url:'../user-set/user-set'
+				})
+			},
 			openLogin() {
 				uni.navigateTo({
 					url: '../login/login'

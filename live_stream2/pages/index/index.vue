@@ -1,13 +1,19 @@
 <template>
-	<view class="content">
-		<tab></tab>
+	<view>
+		<!-- <video src="rtmp://39.98.143.134:1935/live/exp" style="width: 100vw;height: 400rpx;" :autoplay="true" controls></video> -->
+		<video src="rtmp://120.26.177.51:1935/live/exp" style="width: 100vw;height: 400rpx;" :autoplay="true" controls></video>
 	</view>
+</template>
+
+<script>
+	export default {}
+</script>
 </template>
 
 <script>
 	import tab from '../../components/common/tab.vue'
 	export default {
-		components:{
+		components: {
 			tab
 		},
 		data() {

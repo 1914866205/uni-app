@@ -1,7 +1,8 @@
 <template>
 	<view class="flex-1">
 		<!-- <video src="http://ivi.bupt.edu.cn/hls/cctv12.m3u8" autoplay controls="false" class="flex-1"></video> -->
-		<video src="http://nttlive.utools.club/live/NK0MYZrn5JL1idOra9hw.flv?sign=1604339899-182af671a20ca86ad41a66813e997901" autoplay controls="false" class="flex-1"></video>
+		<video src="http://nttlive.utools.club/live/NK0MYZrn5JL1idOra9hw.flv?sign=1604339899-182af671a20ca86ad41a66813e997901"
+		 autoplay controls="false" class="flex-1"></video>
 		<!-- 头部 -->
 		<view style="position: fixed;left: 0;right: 0;" :style="'top:'+statusBarHeight+'px'">
 
@@ -144,9 +145,9 @@
 			this.gifts = myGifts
 		},
 		methods: {
-			openCoin(){
+			openCoin() {
 				uni.navigateTo({
-					url:'../coin/coin'
+					url: '../coin/coin'
 				})
 			},
 			goback() {
@@ -156,7 +157,9 @@
 			},
 			//打开输入弹幕的对话框
 			openInput() {
-				this.$refs.input.open()
+				this.$store.dispatch('authMethod', () => {
+					this.$refs.input.open()
+				})
 			},
 			//提交发送弹幕信息
 			submit() {
