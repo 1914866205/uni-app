@@ -83,6 +83,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/login1/login1",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		// "navigationBarTextStyle": "white",
