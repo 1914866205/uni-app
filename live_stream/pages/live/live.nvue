@@ -1,8 +1,8 @@
 <template>
 	<view class="flex-1">
 		<!-- <video src="http://ivi.bupt.edu.cn/hls/cctv12.m3u8" autoplay controls="false" class="flex-1"></video> -->
-		<video src="http://nttlive.utools.club/live/NK0MYZrn5JL1idOra9hw.flv?sign=1604339899-182af671a20ca86ad41a66813e997901"
-		 autoplay controls="false" class="flex-1"></video>
+		<!-- <video src="http://nttlive.utools.club/live/NK0MYZrn5JL1idOra9hw.flv?sign=1604339899-182af671a20ca86ad41a66813e997901" -->
+		<video class="flex-1" :src="src" autoplay :controls="false"></video>
 		<!-- 头部 -->
 		<view style="position: fixed;left: 0;right: 0;" :style="'top:'+statusBarHeight+'px'">
 
@@ -11,11 +11,11 @@
 			<view style="hight:80rpx;" class="px-2 flex justify-between align-center">
 				<view style="width: 325rpx;background-color: rgbc(0,0,0,0.4);" class="flex rounded-circle">
 					<view class="p">
-						<image src="../../static/ntt.jpg" style="width: 70rpx;height: 70rpx;" class="rounded-circle"></image>
+						<image :src="detail.user.avatar||'../../static/ntt.jpg'" style="width: 70rpx;height: 70rpx;" class="rounded-circle"></image>
 					</view>
 					<view class="flex-1 flex flex-column justify-center">
-						<text class="text-white font">悲歌</text>
-						<text class="text-white font-sm">100</text>
+						<text class="text-white font">{{detail.user.username}}</text>
+						<text class="text-white font-sm">{{detail.user.look_count}}</text>
 					</view>
 					<view class="p">
 						<view class="rounded-circle flex align-center justify-center bg-danger" style="width: 70rpx;height: 70rpx;">
@@ -45,7 +45,7 @@
 						<text class="text-warning">金币</text>
 					</view>
 					<view class="flex-1 flex flex-column justify-center">
-						<text class="text-white font">100</text>
+						<text class="text-white font">{{detail.coin}}</text>
 					</view>
 				</view>
 			</view>
@@ -125,9 +125,29 @@
 	import fDanmu from '@/components/live/f-danmu.vue'
 	import uniPopup from '@/components/uni-ui/uni-popup/uni-popup.vue'
 	import myGifts from '@/common/gift.js'
+	import $H from '@/common/request.js'
 	export default {
 		data() {
 			return {
+				id: 0,
+				detail: {
+					created_time: '',
+					id: 1,
+					cover: '',
+					title: '',
+					user_id: 0,
+					look_count: 0,
+					coin: 0,
+					key: '',
+					status: 0,
+					userId: 0,
+					user: {
+						id: 0,
+						username: '',
+						avatar: ''
+					}
+				},
+				sign: '',
 				statusBarHeight: 0,
 				content: '', //发送的弹幕内容
 				gifts: [],
@@ -140,9 +160,18 @@
 			uniPopup
 		},
 		onLoad(option) {
+			this.id = option.id;
+			console.log(">>live.nvue" + this.id)
 			let res = uni.getSystemInfoSync()
 			this.statusBarHeight = res.statusBarHeight
 			this.gifts = myGifts
+			//请求后端接口，获得该直播间详情数据，包括主播信息，和直播间签名等数据
+			$H.get('/live/read/' + this.id).then(res => {
+				console.log(res);
+				this.detail = res.data;
+				this.sign = res.sign
+			})
+
 		},
 		methods: {
 			openCoin() {
@@ -168,7 +197,7 @@
 				}
 				this.$refs.danmu.send({
 					id: Math.random() * 100, //随机生成一个id
-					name: "涛涛",
+					name: this.$store.state.user.username,
 					content: this.content,
 				})
 				this.content = ''
@@ -199,8 +228,8 @@
 				}
 				let g = this.gifts[index]
 				this.$refs.gift.send({
-					username: '涛涛',
-					avatar: '../../static/ntt.jpg',
+					username: this.$store.state.user.username,
+					avatar: this.$store.state.user.avatar,
 					gift_name: g.name,
 					gift_image: g.image,
 					num: 10
