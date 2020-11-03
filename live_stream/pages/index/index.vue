@@ -1,86 +1,80 @@
 <template>
 	<view>
-		<view>
-			<image src="../../static/tabbar/3.jpg" class="img" style="width: 750rpx;height: 180rpx;"></image>
+		<view class="top flex align-center justify-center">
+		<input style="width: 600rpx;height: 70rpx;background-color: rgba(0,0,0,0.4);" 
+		type="text"
+		class="rounded-circle mx-1 pl-5"
+		placeholder="搜索直播间"
+		/>
 		</view>
-		<!-- 轮播图 -->
-		<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="200" style="width: 750rpx;height: 250rpx;">
-			<swiper-item>
-				<image src="../../static/tabbar/1.jpg" style="width: 750rpx;height: 250rpx;"></image>
-			</swiper-item>
-			<swiper-item>
-				<image src="../../static/tabbar/2.jpg" style="width: 750rpx;height: 250rpx;"></image>
-			</swiper-item>
-		</swiper>
-		<!-- 列表 -->
+		
+		<!-- 直播列表 -->
 		<view class="flex flex-wrap">
-			<show-list class="list-item" v-for="(item,index) in showlists" :key='index' :item="item" @click="openLive()">
-			</show-list>
-		</view>
-
-
+		<view class="list-item"
+		 v-for="(item,index) in list" :key="index">
+		 <f-card :item="item" :index="index" @click="openLive(item.id)"></f-card>
+		 </view>
+	</view>
+	
+	<view class="f-divider"></view>
+	<view class="flex align-center justify-center py-3">
+		<text class="font-md text-secondary">{{loadText}}</text>
+	</view>
 	</view>
 </template>
 
 <script>
-	import showList from '@/components/list/showlist.vue'
+	import fCard from "@/components/live/f-card.vue";
 	export default {
+		components:{
+			fCard
+		},
 		data() {
 			return {
-				showlists: [				
-					{
-					bg: 'https://i0.hdslb.com/bfs/archive/734ebccdc06023ea6a41a5aa8a5334fba6229c31.jpg@336w_190h.webp',
-					shower: 9124,
-					hot: 999,
-					isLive: true
-				}, 
-				{
-					bg: 'https://i2.hdslb.com/bfs/archive/496dca5fb2714fd47ea607a68b66f428192495a3.jpg@321w_201h_1c.webp',
-					shower: 24,
-					hot: 9,
-					isLive: false
-				}, 
-				{
-					bg: 'https://i1.hdslb.com/bfs/archive/6dd0e762ebc964e3a1677f27ee7fde1daa0f7f63.jpg@200w_125h_1c.webp',
-					shower: 124,
-					hot: 45,
-					isLive: true
-				}, 		
-				{
-					bg: 'https://i1.hdslb.com/bfs/archive/09756d56996c13b5f140a1808fd74f1cc8fc8b77.jpg@200w_125h_1c.webp',
-					shower: 12452,
-					hot: 999,
-					isLive: true
-				}, 
-				{
-					bg: 'https://i0.hdslb.com/bfs/archive/76664e36a8a4621bceadac087101e3f55af7d877.jpg@412w_232h_1c',
-					shower: 74,
-					hot: 12,
-					isLive: true
-				}, 
-				{
-					bg: 'https://i0.hdslb.com/bfs/bangumi/image/0d5843ee93728eebeed99b2a9fe69e1e349465e7.png@87w_88h_1c_100q.webp',
-					url:'',
-					shower: 7524,
-					hot: 999,
-					isLive: true
-				}, 
-				]
-			}
-		},
-		props: {
-			item:Object,
-		},
-		components: {
-			showList
+				list:[],
+				page:1,
+				loadText:'上拉加载更多'
+			};
 		},
 		onLoad() {
+			this.getData();
+		},
+		onPullDownRefresh() {
+			this.page = 1;
+			this.getData().then(res => {
+				uni.showToast({
+					title:'刷新成功',
+					icon:'none'
+				});
+				uni.stopPullDownRefresh();
+			}).catch(err => {
+				uni.stopPullDownRefresh();
+			});
+		},
+		onReachBottom() {
+			if(this.loadText !== '上拉加载更多'){
+				return;
+			}
+			this.loadText = '加载中...';
+			// this.page++;
+			this.getData();
 		},
 		methods: {
-			openLive() {
-				console.log("跳转页面")
+			getData(){
+				let page = this.page;
+				return this.$H.post('/live/list/'+page).then(res => {
+					(this.list = page === 1 ? res: [...this.list,...res]),
+					(this.loadText = res.length < 10 ? '没有更多了' : '上拉加载更多');
+				}).catch(err => {
+					if(this.page > 1){
+						this.page -- ;
+						this.loadText = '上拉加载更多';
+					}
+				});
+			},
+			openLive(id) {
 				uni.navigateTo({
-					url: '../live/live'
+					url:'../live/live?id='+id
 				})
 			}
 		}
@@ -88,5 +82,18 @@
 </script>
 
 <style>
-
+.list-item {
+	width: 375rpx;
+	height: 375rpx;
+	padding: 5rpx;
+	box-sizing: border-box;
+	position: relative;
+}
+.top{
+	width: 750rpx;
+	height: 260rpx;
+	background-image: url(../../static/06.jpg);
+	background-size: cover;
+	background-image: linear-gradient(to right,#ba7ace 0%,#8745ff 100%);
+}
 </style>

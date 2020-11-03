@@ -114,15 +114,12 @@
 			},
 			change() {
 				this.account = !this.account
-				console.log(this.account)
 			},
 			changeType() {
 				this.type = this.type === 'login' ? 'reg' : 'login'
 			},
 			submit() {
 				let msg = this.type === 'login' ? '去登录' : '注册'
-				console.log(msg)
-				console.log(this.form)
 				this.$H.post('/' + this.type, this.form).then(res => {
 					uni.showToast({
 						title: msg + '成功',
