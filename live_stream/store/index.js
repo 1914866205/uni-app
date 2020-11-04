@@ -26,11 +26,19 @@ export default new Vuex.Store({
 				transports: ['websocket'],
 				timeout: 5000
 			})
+			//全局事件，用来监听在线人数
+			let onlineEvent = (e) => {
+				uni.$emit('live', {
+					type: "online",
+					data: e
+				})
+			}
+
 
 			//监听连接
 			S.on('connect', () => {
 				console.log('socket已连接')
-				state.socket=S
+				state.socket = S
 				//测试推送一条消息到后端
 				// S.emit('test', '测试socket连接')
 				//scoket.io唯一链接id，可以监控这个id实现点对点通讯
@@ -50,7 +58,15 @@ export default new Vuex.Store({
 						})
 					}
 				})
+				//监听在线用户信息
+				S.on('online',onlineEvent)
 			})
+			//移除监听事件
+			const removeListener=()=>{
+				if(S){
+					S.removeListener('ononline',onlineEvent)
+				}
+			}
 			//监听失败
 			S.on('error', () => {
 				console.log('连接失败')

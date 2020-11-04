@@ -1,4 +1,4 @@
 export default{
-	baseUrl:"https://nttneiwang.utools.club",
-	socketUrl:"https://nttneiwang.utools.club",
+	baseUrl:"https://nttdeneiwang.utools.club",
+	socketUrl:"https://nttdeneiwang.utools.club",
 }
