@@ -42,7 +42,7 @@ common: {
 					});
 					// token不存在时跳转
 					uni.navigateTo({
-						url: '/pages/login/login',
+						url: '/pages/login1/login1',
 					});
 					return rej("请先登录")
 				}

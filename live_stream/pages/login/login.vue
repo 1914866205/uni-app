@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
 	<view class="container">
 		<view class="flex align-center justify-center" style="height: 70rpx;">
 			<text style="font-size: 40rpx;" class="text-light">{{this.account===true?'验证码登录':'账号密码登录'}}</text>
@@ -158,3 +158,4 @@
 		background-image: linear-gradient(to bottom, #BA7ACE 0%, #8745FF 100%);
 	}
 </style>
+ -->

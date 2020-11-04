@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 import $H from '../common/request.js'
+
 export default new Vuex.Store({
 	state: {
 		user:null,
@@ -14,10 +15,13 @@ export default new Vuex.Store({
 				token:true,
 				toast:false
 			})
+			console.log("-----------------"+2)
 			state.user = null
 			state.token = null
 			uni.removeStorageSync('user')
 			uni.removeStorageSync('token')
+			console.log("index当前token"+state.token)
+			console.log("index当前user"+state.user)
 		},
 		initUser({state}){
 			let user = uni.getStorageSync('user')
@@ -30,15 +34,16 @@ export default new Vuex.Store({
 		login({state},user){
 			state.user = user
 			state.token = user.token
-			
 			uni.setStorageSync('user',JSON.stringify(user))
 			uni.setStorageSync('token',user.token)
+			console.log("index当前token"+state.token)
+			console.log("index当前user"+state.user)
 		},
 		getUserInfo({
 			state
 		}) {
 			$H.get('/user/info',{
-				token:true,
+				token:true,	
 				noJump:true,
 				toast:false
 			}).then(res => {
@@ -52,15 +57,17 @@ export default new Vuex.Store({
 		authMethod({
 			state
 		},callback){
+			console.log("验证是否登录"+state.token)
 			if(!state.token){
 				uni.showToast({
 					title:'请先登录',
 					icon:'none'
 				});
 				return uni.navigateTo({
-					url:'/pages/login/login'
+					url:'/pages/login1/login1'
 				})
 			}
+			console.log("验证通过")
 		}
 
 	}

@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="top flex align-center justify-center"></view>
-		<view v-if="!user" class="flex align-center">
+		<view v-if="!user" class="flex align-center">  <!-- user=null  走else    !null  走if -->
 			<view class="flex align-center justify-center position-relative" style="width: 180rpx;height: 160rpx;">
 				<image src="../../static/ntt.jpg" class="rounded-circle" style="width: 145rpx;height: 145rpx;position: absolute;top: -60rpx;"></image>
 			</view>
@@ -38,13 +38,14 @@
 
 			<f-list-item icon="iconfaxian" title="我的关注"><text class="text-muted font">0</text></f-list-item>
 			<f-list-item icon="iconmore" title="历史记录"></f-list-item>
-			<f-list-item @click="logout()" icon="icontuichu" title="退出登录"></f-list-item>
+			<f-list-item @click="logout" icon="icontuichu" title="退出登录"></f-list-item>
 		</view>
 	</view>
 </template>
 
 <script>
 	import fListItem from "@/components/live/f-list-item.vue";
+	import store from "@/store/index.js"
 	import {
 		mapState
 	} from 'vuex';
@@ -58,16 +59,20 @@
 			};
 		},
 		onShow() {
-			this.$store.dispatch('getUserInfo');
+			console.log("-----------------"+4)
+			console.log("----------------444-"+this.user)
+			console.log("----------------444-"+store.user)
+			store.dispatch('getUserInfo');
 		},
 		computed: {
 			...mapState({
 				user: state => state.user
-			})
+			}),
 		},
 		onLoad() {
 			let res = uni.getSystemInfoSync();
 			this.statusBarHeight = res.statusBarHeight;
+			console.log("-----------------"+5)
 		},
 		methods: {
 			openLogin() {
@@ -75,12 +80,18 @@
 					url: '../login1/login1'
 				})
 			},
-			logout(e) {
-				this.$store.dispatch('logout').then(res => {
+			logout() {
+				console.log("logout方法触发")
+				console.log("-----------------"+1)
+				store.dispatch('logout').then(res => {
+				console.log("-----------------"+1.2)
 					uni.navigateBack({
 						delta: 1
 					});
 				});
+				console.log("-----------------"+3)
+				console.log("-----------------"+this.user)
+				
 			}
 		}
 	};

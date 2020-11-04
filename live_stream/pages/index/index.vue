@@ -62,7 +62,9 @@
 		methods: {
 			getData(){
 				let page = this.page;
+				console.log("getData>>>>>>>>>>>")
 				return this.$H.post('/live/list/'+page).then(res => {
+					console.log(res)
 					(this.list = page === 1 ? res: [...this.list,...res]),
 					(this.loadText = res.length < 10 ? '没有更多了' : '上拉加载更多');
 				}).catch(err => {

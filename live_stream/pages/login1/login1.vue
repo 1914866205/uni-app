@@ -27,7 +27,7 @@
 				</view>
 				<view class="mb-2 flex align-stretch">
 					<input type="text" v-model="form.code" placeholder="请输入验证码" class="border-bottom p-2 flex-1" />
-					<view class="border-bottom flex align-center justify-center font-sm text-white" :class="codeTime > 0 ? 'bg-disabled' : 'bg-main'"
+					<view class="border-bottom flex align-center justify-center font-sm text-white" :class="this.sendcodeflag ? 'bg-main': 'bg-disabled'"
 					 style="width: 180rpx;" @click="getCode">
 						<!-- {{ codeTime > 0 ? codeTime + ' s' : '获取验证码' }} -->
 						{{this.show}}
@@ -194,7 +194,7 @@
 				}
 				this.$H.post('/otherlogin', body).then(res => {
 					if (res.id) {
-						this.$store.dispatch('login1', res);
+						this.$store.dispatch('login', res);
 						uni.showToast({
 							title: '登录成功'
 						});
@@ -241,16 +241,16 @@
 				// if (!this.validate()) {
 				// 	return;
 				// }
-				if (this.sendcode) {
+				console.log("获取验证码")
+				console.log("1-----" + this.sendcodeflag)
+				console.log("2-----" + this.form.phone)
+				if (this.sendcodeflag) {
 					this.$H.post("/sendcode", {
 						phone: this.form.phone
 					})
-
 				}
 
 				this.sendcode = false
-
-
 				if (!this.sencodeflag) {
 					let i = 60
 					setInterval(() => {
@@ -263,9 +263,6 @@
 						}
 					}, 1000)
 				}
-
-
-
 				/**
 				 * 验证码登录流程
 				 * 前端：把手机号传给后端
