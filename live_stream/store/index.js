@@ -11,93 +11,119 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
 	state: {
-		user:null,
-		token:null,
-		socket:null
+		user: null,
+		token: null,
+		socket: null
 	},
-	actions:{
+	actions: {
 		//连接socket
 		connectSocket({
 			state,
 			dispatch
-		}){
-			const S=io($C.socketUrl,{
-				query:{},
-				transports:['websocket'],
-				timeout:5000
+		}) {
+			const S = io($C.socketUrl, {
+				query: {},
+				transports: ['websocket'],
+				timeout: 5000
 			})
-			
+
 			//监听连接
-			S.on('connect',()=>{
-				console.log('已连接')
+			S.on('connect', () => {
+				console.log('socket已连接')
+				state.socket=S
+				//测试推送一条消息到后端
+				// S.emit('test', '测试socket连接')
+				//scoket.io唯一链接id，可以监控这个id实现点对点通讯
+				const {
+					id
+				} = S
+
+				//监听来自服务器端的消息
+				S.on(S.id, (e) => {
+					// console.log(e)
+					let d = e.data
+					if (d.action === 'error') {
+						let msg = d.payload
+						return uni.showToast({
+							title: msg,
+							icon: 'none'
+						})
+					}
+				})
 			})
 			//监听失败
-			S.on('error',()=>{
+			S.on('error', () => {
 				console.log('连接失败')
 			})
 			//监听端口
-			S.on('disconnect',()=>{
+			S.on('disconnect', () => {
 				console.log('已断开')
 			})
 		},
-		
-		
-		
-		logout({state}) {
-			$H.post('/logout',{},{
-				token:true,
-				toast:false
+
+
+
+		logout({
+			state
+		}) {
+			$H.post('/logout', {}, {
+				token: true,
+				toast: false
 			})
-			console.log("-----------------"+2)
+			console.log("-----------------" + 2)
 			state.user = null
 			state.token = null
 			uni.removeStorageSync('user')
 			uni.removeStorageSync('token')
-			console.log("index当前token"+state.token)
-			console.log("index当前user"+state.user)
+			console.log("index当前token" + state.token)
+			console.log("index当前user" + state.user)
 		},
-		initUser({state}){
+		initUser({
+			state
+		}) {
 			let user = uni.getStorageSync('user')
 			let token = uni.getStorageSync('token')
-			if(user){
+			if (user) {
 				state.user = JSON.parse(user)
 				state.token = token
 			}
 		},
-		login({state},user){
+		login({
+			state
+		}, user) {
 			state.user = user
 			state.token = user.token
-			uni.setStorageSync('user',JSON.stringify(user))
-			uni.setStorageSync('token',user.token)
-			console.log("index当前token"+state.token)
-			console.log("index当前user"+state.user)
+			uni.setStorageSync('user', JSON.stringify(user))
+			uni.setStorageSync('token', user.token)
+			console.log("index当前token" + state.token)
+			console.log("index当前user" + state.user)
 		},
 		getUserInfo({
 			state
 		}) {
-			$H.get('/user/info',{
-				token:true,	
-				noJump:true,
-				toast:false
+			$H.get('/user/info', {
+				token: true,
+				noJump: true,
+				toast: false
 			}).then(res => {
 				state.user = res
 				uni.setStorage({
-					key:"user",
-					data:JSON.stringify(state.user)
+					key: "user",
+					data: JSON.stringify(state.user)
 				})
 			})
 		},
 		authMethod({
 			state
-		},callback){
-			console.log("验证是否登录"+state.token)
-			if(!state.token){
+		}, callback) {
+			console.log("验证是否登录" + state.token)
+			if (!state.token) {
 				uni.showToast({
-					title:'请先登录',
-					icon:'none'
+					title: '请先登录',
+					icon: 'none'
 				});
 				return uni.navigateTo({
-					url:'/pages/login1/login1'
+					url: '/pages/login1/login1'
 				})
 			}
 			console.log("验证通过")

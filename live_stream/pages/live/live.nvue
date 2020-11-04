@@ -126,6 +126,10 @@
 	import uniPopup from '@/components/uni-ui/uni-popup/uni-popup.vue'
 	import myGifts from '@/common/gift.js'
 	import $H from '@/common/request.js'
+	import $C from '@/common/config.js'
+	import {
+		mapState
+	} from 'vuex'
 	export default {
 		data() {
 			return {
@@ -165,8 +169,13 @@
 					return '';
 				}
 				return `http://nttlive.utools.club/live/${this.detail.key}.flv?sign=${this.sign}`;
-			}
+			},
+			...mapState({
+				socket: state => state.socket,
+				token: state => state.token
+			})
 		},
+
 		onLoad(option) {
 			this.id = option.id;
 			console.log(">>live.nvue" + this.id)
@@ -182,6 +191,15 @@
 
 		},
 		methods: {
+			//加入或离开直播间
+			joinOrLeaveLive(type) {
+				if (this.socket && this.token) {
+					this.socket.emit(type + 'Live', {
+						live_id: this.id,
+						token: this.token
+					})
+				}
+			},
 			openCoin() {
 				uni.navigateTo({
 					url: '../coin/coin'
@@ -248,6 +266,8 @@
 
 		},
 		mounted() {
+			//加入直播间
+			this.joinOrLeaveLive('join')
 			//送礼物演示
 			setInterval(() => {
 				this.$refs.gift.send({

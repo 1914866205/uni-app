@@ -1,10 +1,12 @@
-<!-- <template>
+<template>
 	<view class="container">
 		<view class="flex align-center justify-center" style="height: 70rpx;">
 			<text style="font-size: 40rpx;" class="text-light">{{this.account===true?'验证码登录':'账号密码登录'}}</text>
 		</view>
 
 		<view v-if="!account">
+			
+			
 			<view class="px-3">
 				<input type="text" v-model="form.username" class="bg-light px-3 mb-4 font rounded" placeholder="请输入昵称/手机号/邮箱" style="height: 100rpx;" />
 				<view class="flex border-bottom">
@@ -158,4 +160,3 @@
 		background-image: linear-gradient(to bottom, #BA7ACE 0%, #8745FF 100%);
 	}
 </style>
- -->

@@ -9,7 +9,9 @@
 
 		<view class="px-2">
 			<template v-if="!status">
-				<view class="mb-2">
+
+
+				<!-- 	<view class="mb-2">
 					<input type="text" v-model="form.username" placeholder="请输入用户名" class="border-bottom p-2" />
 				</view>
 				<view class="mb-2 flex align-stretch">
@@ -17,6 +19,22 @@
 					<view class="border-bottom flex align-center justify-center font text-muted" style="width: 150rpx;">
 						忘记密码？
 					</view>
+				</view> -->
+
+				<view class="mb-2">
+					<input type="text" v-model="form.username" placeholder="请输入用户名" class="border-bottom p-2" />
+
+					<view class="mb-2 flex align-stretch">
+						<input type="text" v-model="form.password" placeholder="请输入密码" class="border-bottom p-2 flex-1" />
+						<view class="border-bottom flex align-center justify-center font text-muted" style="width: 150rpx;">
+							忘记密码？
+						</view>
+					</view>
+
+					<input v-if="type!='login'" type="text" v-model="form.repassword" class="border-bottom p-2" placeholder="请输入确认密码" />
+				</view>
+				<view class="flex align-center justify-center">
+					<text class="text-light-muteds font p-2" @click="changeType">{{type==='login'?'注册账号':'去登录'}}</text>
 				</view>
 			</template>
 
@@ -39,7 +57,7 @@
 		<view class="py-2 px-3">
 			<button class="text-white bg-main" style="border-radius: 50rpx;border: 0;outline: none;" :disabled="disabled" :class="disabled ? 'bg-disabled' : 'bg-main'"
 			 @click="submit">
-				登录
+				{{type==='login'?'登录':'注册'}}
 			</button>
 		</view>
 
@@ -96,10 +114,12 @@
 		},
 		data() {
 			return {
+				type: "login",
 				status: false,
 				form: {
 					username: "",
 					password: "",
+					repassword: "",
 					phone: "",
 					code: "",
 				},
@@ -128,6 +148,9 @@
 			},
 		},
 		methods: {
+			changeType() {
+				this.type = this.type === 'login' ? 'reg' : 'login'
+			},
 			/* 第三方登录操作 */
 			/**
 			 * 登录方法
@@ -318,13 +341,11 @@
 				// if (!this.validate()) {
 				// 	return;
 				// }
-				let type = "";
+				let type = this.type;
 				if (this.status) {
 					type = "phoneLogin";
-				} else {
-					type = "login";
-				}
-				// console.log(type);
+				} 
+				console.log(type);
 				console.log(this.form);
 				this.$H.post("/" + type, this.form).then((res) => {
 					console.log(res);
