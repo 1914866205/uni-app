@@ -89,7 +89,7 @@
 				<view class="flex font-italic justify-center py-2 px-2 ml-3 rounded" @click="submit" :class="content===''?'bg-main-disabled':'bg-main'">
 					<text class="font text-white" 发送</text> </view> </view> </uni-popup> <!-- 送礼物弹出层 -->
 						<uni-popup type="bottom" ref="giftPopup">
-							<view class="bg-white" style="width: 750rpx;height: 550rpx;">
+							<view class="bg-white" style="width: 750rpx;height:auto;">
 								<text class="text-main font-md ml-3">礼物</text>
 								<view class="flex align-center justify-center" style="width: 100rpx;height: 100rpx;" @click="closeGift">
 									<text class="iconfont">&#xe607;</text>
@@ -188,6 +188,20 @@
 				this.detail = res.data;
 				this.sign = res.sign
 			})
+
+			//请求礼物列表接口
+			$H.get('/gift/list').then(res => {
+				this.gifts = res.map(item => {
+					console.log("--------------")
+					console.log($C.imgUrl)
+					console.log(item.image)
+					console.log("--------------")
+					item.image = $C.imgUrl + item.image
+					return item
+				})
+			})
+
+
 			//监听全局事件
 			uni.$on('live', this.handleLiveEvent);
 		},
@@ -275,14 +289,24 @@
 					return
 				}
 				let g = this.gifts[index]
-				this.$refs.gift.send({
-					username: this.$store.state.user.username,
-					avatar: this.$store.state.user.avatar,
-					gift_name: g.name,
-					gift_image: g.image,
-					num: 10
-				})
-				this.closeGift()
+
+				if (!this.token && !this.socket) {
+					uni.navigateTo({
+						url: '../login1/login1'
+					})
+					return uni.showToast({
+						title: '请先登录',
+						icon: 'none'
+					})
+				}
+				console.log(g)
+				if (this.socket) {
+					this.socket.emit('gift', {
+						live_id: this.id,
+						gift_id: g.id,
+						token: this.token
+					})
+				}
 			},
 			//处理直播间各种操作
 			handleLiveEvent(e) {
@@ -308,6 +332,16 @@
 						this.content = ''
 						this.$refs.input.close()
 						break;
+					case 'gift':
+						console.log("准备发送礼物")
+						this.$refs.gift.send({
+							username: e.data.username,
+							avatar: e.data.avatar,
+							gift_name: e.data.gift_name,
+							gift_image: $C.imgUrl+e.data.gift_image,
+							num: e.num
+						})
+						break;
 					default:
 						break;
 				}
@@ -318,15 +352,15 @@
 			//加入直播间
 			this.joinOrLeaveLive('join')
 			//送礼物演示
-			setInterval(() => {
-				this.$refs.gift.send({
-					username: "涛涛",
-					avatar: "../../static/06.jpg",
-					gift_name: "蛋糕",
-					gift_image: "../../static/gift/3.png",
-					num: 1
-				})
-			}, 3000)
+			// setInterval(() => {
+			// 	this.$refs.gift.send({
+			// 		username: "涛涛",
+			// 		avatar: "../../static/06.jpg",
+			// 		gift_name: "蛋糕",
+			// 		gift_image: "../../static/gift/3.png",
+			// 		num: 1
+			// 	})
+			// }, 3000)
 		},
 		destroyed() {
 			//离开直播间
