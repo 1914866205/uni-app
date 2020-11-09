@@ -473,8 +473,12 @@ export default {
 					this.$refs.danmu.send({
 						id: d.id,
 						name: d.user.name,
-						content: d.content
+						content: d.data
 					});
+					console.log("---------------------------------")
+					console.log(d.data)
+					console.log(this.detail.user.id)
+					console.log("---------------------------------")
 					break;
 				case 'gift':
 					d.gift_image = $C.imgUrl + d.gift_image;

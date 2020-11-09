@@ -113,9 +113,9 @@
             "splashscreen" : {
                 "androidStyle" : "default",
                 "android" : {
-                    "hdpi" : "D:/360MoveData/Users/lenovo/Desktop/dog.9.png",
-                    "xxhdpi" : "D:/360MoveData/Users/lenovo/Desktop/dog.9.png",
-                    "xhdpi" : "D:/360MoveData/Users/lenovo/Desktop/dog.9.png"
+                    "hdpi" : "D:/360MoveData/Users/lenovo/Desktop/collection/笔记/十一月/2020-11-09/dog.9.png",
+                    "xxhdpi" : "D:/360MoveData/Users/lenovo/Desktop/collection/笔记/十一月/2020-11-09/dog.9.png",
+                    "xhdpi" : "D:/360MoveData/Users/lenovo/Desktop/collection/笔记/十一月/2020-11-09/dog.9.png"
                 },
                 "iosStyle" : "common"
             }
