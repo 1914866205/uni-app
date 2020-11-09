@@ -3,7 +3,7 @@ export default {
 	common: {
 		//除了H5
 		// #ifndef H5
-		baseUrl: "https://nttneiwang.utools.club/api",
+		baseUrl: "https://nttneiwan.utools.club",
 		// #endif
 
 		// H5
