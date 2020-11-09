@@ -175,9 +175,12 @@
 						$H.upload('/upload', {
 							filePath: res.tempFilePaths[0]
 						}, (p) => {
-							console.log(p);
+							// console.log(p);
 						}).then(res => {
-							this.form.cover = $C.imgUrl + res.url
+							console.log("$C.coverUrl"+$C.coverUrl)
+							console.log(" res.url"+ res.url)
+							this.form.cover = $C.coverUrl + res.url
+							console.log("图片地址"+this.form.cover)
 						})
 					}
 				})
@@ -244,7 +247,7 @@
 			 * @param {Object} e
 			 */
 			statechange(e) {
-				console.log(e);
+				// console.log(e);
 			},
 
 			/**

@@ -265,6 +265,7 @@ export default {
 		};
 	},
 	onLoad(e) {
+		console.log(e)
 		let res = uni.getSystemInfoSync();
 		this.statusBarHeight = res.statusBarHeight;
 		this.windowHeight = res.windowHeight;
@@ -275,9 +276,13 @@ export default {
 			this.beauty = options.beauty;
 			this.whitness = options.whiteness;
 		}
+		
+	
+		
 		if (e.data) {
 			let d = JSON.parse(decodeURIComponent(e.data));
 			this.detail = d.data;
+			console.log("---------"+d.data.coin)
 			this.sign = d.sign;
 		}
 		// 监听全局事件
@@ -472,8 +477,11 @@ export default {
 					});
 					break;
 				case 'gift':
-					d.gift_image = $C.imageUrl + d.gift_image;
-					this.detail.coin += d.grift_coin * d.num;
+					d.gift_image = $C.imgUrl + d.gift_image;
+					this.detail.coin += d.gift_coin * d.num;
+					console.log(this.detail.coin+"---------------")
+					console.log(d.gift_coin+"---------------")
+					console.log(d.num+"---------------")
 					this.$refs.gift.send(d);
 					break;
 				default:
@@ -515,15 +523,15 @@ export default {
 		},
 		// 直播状态的变化
 		statechange(e) {
-			console.log(e);
+			// console.log(e);
 		},
 		// 直播网络的变化
 		netstatus(e) {
-			console.log(e);
+			// console.log(e);
 		},
 		// 直播出错
 		error(e) {
-			console.log(e);
+			// console.log(e);
 		},
 		handleSliderChange(e) {
 			this[this.popupType] = e.detail.value;

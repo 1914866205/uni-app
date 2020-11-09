@@ -56,7 +56,7 @@
 				return;
 			}
 			this.loadText = '加载中...';
-			// this.page++;
+			this.page++;
 			this.getData();
 		},
 		methods: {
@@ -69,7 +69,7 @@
 					(this.loadText = res.length < 10 ? '没有更多了' : '上拉加载更多');
 				}).catch(err => {
 					if(this.page > 1){
-						this.page -- ;
+						this.page ++ ;
 						this.loadText = '上拉加载更多';
 					}
 				});
