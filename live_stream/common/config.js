@@ -1,8 +1,8 @@
 export default {
-	baseUrl: "https://nttneiwang.utools.club/api",
-	socketUrl: "https://nttneiwang.utools.club",
+	baseUrl: "http://ntt.ntt1914866205.xyz/api",
+	socketUrl: "http://ntt.ntt1914866205.xyz",
 	imgUrl: "https://nttbucket.oss-cn-beijing.aliyuncs.com/gift/",
-	coverUrl: "https://nttneiwang.utools.club/",
+	coverUrl: "http://ntt.ntt1914866205.xyz",
 
 	//拉流前缀
 	livePlayBaseUrl: "http://47.242.155.95:23481",
