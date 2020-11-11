@@ -741,7 +741,7 @@ var ___CSS_LOADER_URL_IMPORT_0___ = __webpack_require__(/*! ../../static/06.jpg 
 exports = ___CSS_LOADER_API_IMPORT___(false);
 var ___CSS_LOADER_URL_REPLACEMENT_0___ = ___CSS_LOADER_GET_URL_IMPORT___(___CSS_LOADER_URL_IMPORT_0___);
 // Module
-exports.push([module.i, "\n.list-item {\n\twidth: 375rpx;\n\theight: 375rpx;\n\tpadding: 5rpx;\n\tbox-sizing: border-box;\n\tposition: relative;\n}\n.top{\n\twidth: 750rpx;\n\theight: 260rpx;\n\tbackground-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n\tbackground-size: cover;\n\tbackground-image: -webkit-linear-gradient(left,#ba7ace 0%,#8745ff 100%);\n\tbackground-image: linear-gradient(to right,#ba7ace 0%,#8745ff 100%);\n}\n", ""]);
+exports.push([module.i, "\n.list-item {\n\twidth: 375rpx;\n\theight: 375rpx;\n\tpadding: 5rpx;\n\tbox-sizing: border-box;\n\tposition: relative;\n}\n.top {\n\twidth: 750rpx;\n\theight: 260rpx;\n\tbackground-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n\tbackground-size: cover;\n\tbackground-image: -webkit-linear-gradient(left, #ba7ace 0%, #8745ff 100%);\n\tbackground-image: linear-gradient(to right, #ba7ace 0%, #8745ff 100%);\n}\n.sticky-box {\n\tposition: -webkit-sticky;\n\tposition: sticky;\n\ttop: 0;\n\tz-index: 99;\n}\n", ""]);
 // Exports
 module.exports = exports;
 

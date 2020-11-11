@@ -178,7 +178,7 @@
 
 		onLoad(option) {
 			this.id = option.id;
-			console.log(">>live.nvue" + this.id)
+			// console.log(">>live.nvue" + this.id)
 			let res = uni.getSystemInfoSync()
 			this.statusBarHeight = res.statusBarHeight
 			this.gifts = myGifts
@@ -192,10 +192,10 @@
 			//请求礼物列表接口
 			$H.get('/gift/list').then(res => {
 				this.gifts = res.map(item => {
-					console.log("--------------")
-					console.log($C.imgUrl)
-					console.log(item.image)
-					console.log("--------------")
+					// console.log("--------------")
+					// console.log($C.imgUrl)
+					// console.log(item.image)
+					// console.log("--------------")
 					item.image = $C.imgUrl + item.image
 					return item
 				})
