@@ -9,7 +9,7 @@ export default {
 		playStatus: false, //播放与暂停标识
 		currentPlayIndex: 0, //当前歌曲标识
 		durationTime: 0, //音频总时长
-		currentTime: 0 //音频播放时刻
+		currentTime: 0 ,//音频播放时刻
 	},
 	getters: {
 		//音频name
@@ -22,6 +22,12 @@ export default {
 			let curIndex = state.currentPlayIndex;
 			let singer = musics[curIndex].singer;
 			return singer.name
+		},
+		//歌手简介
+		singerSynopsis(state) {
+			let curIndex = state.currentPlayIndex;
+			let singer = musics[curIndex].singer;
+			return singer.synopsis
 		}
 	},
 	mutations: {

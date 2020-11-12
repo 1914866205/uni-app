@@ -5,7 +5,7 @@ export default {
 			src: '/static/mp3/y.mp3',
 			singer: {
 				name: "石进",
-				synopsIs: "石进，1981年4月5日生，广西柳州人"
+				synopsis: "石进，1981年4月5日生，广西柳州人"
 			}
 		},
 		{
@@ -14,7 +14,7 @@ export default {
 			src: '/static/mp3/Bandari-Snowdream.mp3',
 			singer: {
 				name: "Bandari",
-				synopsIs: "Andemund 乐团-团圆,CLANNAD(日本) - メグメル"
+				synopsis: "Andemund 乐团-团圆,CLANNAD(日本) - メグメル"
 			}
 		},
 		{
@@ -23,7 +23,7 @@ export default {
 			src: '/static/mp3/Bandari-.mp3',
 			singer: {
 				name: "Bandari",
-				synopsIs: "Andemund 乐团-团圆,CLANNAD(日本) - メグメル"
+				synopsis: "Andemund 乐团-团圆,CLANNAD(日本) - メグメル"
 			}
 		},
 		{
