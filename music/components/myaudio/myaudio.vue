@@ -3,18 +3,18 @@
 		<!-- 进度部分 -->
 		<view class="flex align-center justify-center font" style="color: #7a8388;height: 65rpx;">
 			<!-- 进度条部分 -->
+				<view style="display: inline-block;">{{ currentTime | formatTime }}</view>
 			<view style="width: 500rpx ;display: inline;">
 				<!-- 播放 -->
-				<view style="display: inline-block;">{{ currentTime | formatTime }}</view>
 				<slider @change="sliderToPlay" @changing="sliderToPlay" block-size="16" activeColor="#e48267" backgroundColor="#eef2f3"
-				 :max="durationTime" :value="currentTime" style="display: inline-block;width: 350rpx;" />
+				 :max="durationTime" :value="currentTime" style="display: inline-block;width: 380rpx;" />
 			</view>
 			<!-- 总时长 -->
 			<view>{{ durationTime | formatTime }}</view>
 		</view>
 		<view class="flex align-center justify-between mx-2" style="height: 95rpx;">
 			<!-- 音频相关信息 -->
-			<view class="font" style="color: #424651;">
+			<view class="font" style="color: #424651;"  @tap="toDetailPage">
 				<view>歌手-{{ singerName }}</view>
 				<view>歌曲-{{ audioName }}</view>
 			</view>
@@ -72,11 +72,15 @@
 				'PlayOrPause',
 				'PreOrNext',
 				'sliderToPlay'
-			])
+			]),
+			toDetailPage() {
+				uni.navigateTo({
+					url: '/pages/detail/detail'
+				})
+			}
 		},
 		data() {
 			return {
-
 			}
 		},
 		mounted() {
