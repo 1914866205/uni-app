@@ -1,6 +1,6 @@
 //音频资源
-import resourecs from './musicResourecs.js';
-let musics = resourecs.musicResourecs;
+import resources from './musicResources.js';
+let musics = resources.musicResources;
 
 let audio,
 	timeout;
