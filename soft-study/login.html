@@ -195,7 +195,7 @@
                       adminUserLogin.password = password
                       //用户名密码登录
                       axios.post(
-                          'http://crq.com:8005/adminMsg/adminLogin',
+                          'http://localhost:8005/adminMsg/adminLogin',
                           adminUserLogin
                       ).then((res) => {
                           console.log(res.data)
