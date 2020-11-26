@@ -11,29 +11,64 @@
 		<title>文章预览页面</title>
 	</head>
 	<body>
-		<div>
-			<!-- 中间主体部分 -->
-			<div id="app" class="container">
-				<div class="big-title">{{article.title}}</div>
-				<div class="datail-title">
-					<!-- 左侧分享 -->
-					<div class="left-social">
-						<div class="date-title">
-							<span class="year">{{year}}</span>
-						</div>
-						<div class="back-year-line"></div>
-						<div class="date-md">{{monthDay}}</div>
-						<div class="date-times">{{time}}</div>
-						<div class="writer-name">{{userInfo.nickname}}</div>
+		<div id="mainPage" class="mybody">
+			<!-- 顶部 -->
+			<div id="whiteHeader" class="red-header">
+				<div class="head_wrapper">
+					<div class="right-me-info">
+						<img :src="userInfo.face" class="me-face" />
+						<span class="me-nickname">{{userInfo.nickname}}</span>
 					</div>
-					<!-- 中间文章主体 -->
-					<div class="container-middle">
-						<div class="article-title-wrapper">
-							<div class="content" v-html="article.content"></div>
-							<div class="declare">秀儿，请坐</div>
+				</div>
+			</div>
+
+			<!-- 页面容器 -->
+			<div class="container">
+				<div class="main-page">
+					<div class="title-box">
+						<div class="title-wrapper">
+							<span class="title-word">粉丝画像</span>
 						</div>
 					</div>
-					<div class="blank-right"></div>
+
+					<div class="all-charts-wrapper">
+						<div class="sex-lable">男女比例</div>
+						<!-- 男女比例 -->
+						<div class="sex-wrapper">
+							<div class="sex-line-wrapper">
+								<div id="manPercent" class="sex-man-line" style="width: 60%"></div>
+								<div id="womanPercent" class="sex-woman-line" style="width: 40%"></div>
+							</div>
+
+							<div class="sex-block-wrapper">
+								<div class="sex-all-counts">
+									总粉丝数：{{manCounts + womanCounts}}人
+								</div>
+								<div class="sex-man-counts">
+									<div class="sex-man-block"></div>
+									男性：{{manCounts}}人，占比 {{getPercent(manCounts/(manCounts
+	                  + womanCounts))}}%
+								</div>
+								<div class="sex-woman-counts">
+									<div class="sex-woman-block"></div>
+									女性：{{womanCounts}}人，占比
+									{{getPercent(womanCounts/(manCounts + womanCounts))}}%
+								</div>
+							</div>
+						</div>
+						<!-- 男女比例柱状图 -->
+						<div class="histogram-wrapper">
+							<div id="sexHistogram" style="width: 800px; height: 500px"></div>
+						</div>
+						<div class="pie-wrapper">
+							<div id="sexPie" style="width: 800px; height: 400px; padding: 15px"></div>
+						</div>
+
+						<div class="city-lable">地域分布</div>
+						<div class="map-wrapper">
+							<div id="mapChart" style="width: 800px; height: 500px"></div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -51,28 +86,11 @@
 					nickename: '丘比特乱箭杀'
 				},
 			},
-			created() {
-				this.previewArticle()
-			},
+			created() {},
 			mounted() {
 
 			},
-			methods: {
-				//预览
-				previewArticle() {
-					//从sessionStorage中获取并渲染
-					var articleBOStr = sessionStorage.getItem('previewArticleInfo')
-					var article = JSON.parse(articleBOStr)
-					this.article = article
-					//日期格式化
-					var year = moment(new Date()).format('YYYY')
-					this.year = year
-					var monthDay = moment(new Date()).format('MM/DD')
-					this.monthDay = monthDay
-					var time = moment(new Date()).format('HH:mm')
-					this.time = time
-				}
-			}
+			methods: {}
 		})
 	</script>
 </html>
