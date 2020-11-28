@@ -62,7 +62,7 @@
 			"iconPath": "static/images/tabBar/take.png",
 			"selectedIconPath": "static/images/tabBar/take_selected.png"
 		}, {
-			"pagePath": "pages/login/login",
+			"pagePath": "pages/mine/mine",
 			"text": "我的",
 			"iconPath": "static/images/tabBar/mine.png",
 			"selectedIconPath": "static/images/tabBar/mine_selected.png"

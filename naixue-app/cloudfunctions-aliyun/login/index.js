@@ -12,7 +12,7 @@ exports.main = async (event, context) => {
 	console.log("event.userInfo" + event.userInfo);
 	uniCloud.logger.log("event.userInfoUni" + event.userInfo)
 	uniCloud.logger.log("uniCloud.logger.log方式打印")
-	uniCloud.logger.log("console.log方式打印")
+	console.log("console.log方式打印")
 	console.log("event.code" + event.code);
 	let data = {
 		appid: loginConfig.appId,
