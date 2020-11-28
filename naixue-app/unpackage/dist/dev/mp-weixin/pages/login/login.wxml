@@ -1,0 +1,1 @@
+<button class="login-btn data-v-b237504c" type="primary" size="default" open-type="getUserInfo" lang="zh_CN" data-event-opts="{{[['getuserinfo',[['wxLogin',['$event']]]]]}}" bindgetuserinfo="__e"><image src="/static/images/mine/wechat.png" class="data-v-b237504c"></image>微信一键登录</button>

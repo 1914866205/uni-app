@@ -25,7 +25,16 @@
 			"navigationBarTextStyle": "black",
 			"navigationBarTitleText": "个人中心"
 		}
-	}],
+	}    ,{
+            "path" : "pages/login/login",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
@@ -53,7 +62,7 @@
 			"iconPath": "static/images/tabBar/take.png",
 			"selectedIconPath": "static/images/tabBar/take_selected.png"
 		}, {
-			"pagePath": "pages/mine/mine",
+			"pagePath": "pages/login/login",
 			"text": "我的",
 			"iconPath": "static/images/tabBar/mine.png",
 			"selectedIconPath": "static/images/tabBar/mine_selected.png"

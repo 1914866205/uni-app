@@ -1,0 +1,159 @@
+<template>
+	<button type="primary" size="default" class="login-btn" open-type="getUserInfo" lang="zh_CN" @getuserinfo="wxLogin">
+		<image src="/static/images/mine/wechat.png"></image>
+		微信一键登录
+	</button>
+</template>
+<script>
+	import {
+		mapState,
+		mapMutations
+	} from 'vuex'
+	export default {
+		data() {
+			return {
+
+			}
+		},
+		methods: {
+			...mapMutations(['Login']),
+			wxLogin(e) {
+				const that = this
+				let userInfo = e.detail.userInfo
+				console.log(userInfo)
+				uni.showLoading({
+					title: '登录中...'
+				})
+				//第一步：小程序通过uni.login()获取本账户的code。
+				return new Promise((resolve, reject) => {
+						uni.login({
+							provider: 'weixin',
+							success(login_res) {
+								if (login_res.code) {
+									resolve(login_res.code)
+								} else {
+									reject(new Error('微信登录失败'))
+								}
+							},
+							fail(e) {
+								reject(new Error('微信登录失败'))
+							}
+						})
+					})
+					.then(code => {
+						// 第二步：小程序通过uni.request()发送code到开发者服务器。
+						console.log('code', code)
+						return uniCloud.callFunction({
+							name: 'login',
+							data: {
+								code,
+								userInfo
+							}
+						})
+					})
+
+					// ******************************服务器********************************************
+					// 第三步：开发者服务器接收小程序发送的code，并携带appid、appsecret（这两个需要到微信小程序后台查看）、code发送到微信服务器。
+					// 第四步：微信服务器接收开发者服务器发送的appid、appsecret、code进行校验。校验通过后向开发者服务器发送session_key、openid。
+					// 第五步：开发者服务器自己生成一个key（自定义登录状态）与openid、session_key进行关联，并存到数据库中（mysql、redis、云数据库等）。
+					// 第六步：开发者服务器返回生成key（自定义登录状态）到小程序。
+					// ******************************服务器********************************************
+
+
+					// 这里的res 是调用云函数的登录返回的信息
+					.then(res => {
+						// 第七步：小程序存储key（自定义登录状态）到本地。
+						uni.hideLoading()
+						console.log(res)
+						if (res.result.status != 0) {
+							return Promise.reject(new Error(res.result.msg))
+						}
+						console.log(res.result.data)
+						that.Login(res.result.data)
+
+
+						uni.setStorage({
+							key: 'token',
+							data: res.result.token
+						})
+						uni.showModal({
+							content: '登录成功',
+							showCancel: false
+						})
+						uni.hideLoading()
+						uni.navigateBack()
+					}).catch(err => {
+						console.log(err)
+						uni.hideLoading()
+						uni.showModal({
+							content: '出现错误，请稍后重试' + err.message,
+							showCancel: false
+						})
+					})
+			}
+		}
+	}
+</script>
+
+<style lang="scss" scoped>
+	.intro {
+		width: 100%;
+		height: 60vh;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: space-evenly;
+		font-size: $font-size-base;
+		color: $text-color-assist;
+
+		image {
+			width: 165rpx;
+			height: 165rpx;
+		}
+
+		.tips {
+			line-height: 72rpx;
+			text-align: center;
+		}
+	}
+
+	.bottom {
+		height: 40vh;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		padding: 0 40rpx;
+
+		.login-btn {
+			width: 100%;
+			border-radius: 50rem !important;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 10rpx 0;
+
+			image {
+				width: 35rpx;
+				height: 30rpx;
+				margin-right: 10rpx;
+			}
+		}
+
+		.row {
+			display: flex;
+
+			.grid {
+				width: 20%;
+				text-align: center;
+
+				image {
+					width: 60rpx;
+					height: 60rpx;
+					margin-bottom: 10rpx;
+				}
+			}
+		}
+
+
+	}
+</style>
