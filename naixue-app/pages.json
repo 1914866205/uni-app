@@ -73,6 +73,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/remark/remark",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
