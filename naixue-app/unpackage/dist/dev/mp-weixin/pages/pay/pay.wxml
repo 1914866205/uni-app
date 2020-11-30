@@ -1,1 +1,1 @@
-<view><view class="_h3">{{"订单总价: "+total}}</view></view>
+<view><view class="_h3">{{"订单id: "+orderid}}</view><view class="_h3">{{"订单总价: "+total}}</view></view>

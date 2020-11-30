@@ -1935,7 +1935,69 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ 107:
+/***/ 11:
+/*!****************************************************************************!*\
+  !*** D:/CompcuteApplication/projectTest/uni-app/naixue-app/store/index.js ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
+var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 12));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+_vue.default.use(_vuex.default);
+var store = new _vuex.default.Store({
+  state: {
+    isLogin: false,
+    orderType: 'takein',
+    userInfo: {},
+
+
+    choseAddress: {},
+    choseStore: {},
+    orderCurrent: {} },
+
+  mutations: {
+    //登录
+    Login: function Login(state, res) {
+      state.isLogin = true;
+      state.userInfo = res;
+      uni.setStorage({
+        key: 'userinfo',
+        data: res });
+
+    },
+
+    SET_ORDERTYPE: function SET_ORDERTYPE(state, type) {
+      state.orderType = type;
+    },
+
+
+    SET_ADDRESS: function SET_ADDRESS(state, address) {
+      state.choseAddress = address;
+    },
+
+    SET_STORE: function SET_STORE(state, store) {
+      state.choseStore = store;
+    },
+    SET_ORDERCURRENT: function SET_ORDERCURRENT(state, current) {
+      state.orderCurrent = current;
+    },
+    CHEAR_CURRENT: function CHEAR_CURRENT(state) {
+      state.orderCurrent = {};
+    },
+    SET_ORDERCURRENTSTATUS: function SET_ORDERCURRENTSTATUS(state, status) {
+      state.orderCurrent.status = status;
+    } },
+
+  actions: {} });var _default =
+
+store;exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 113:
 /*!*******************************************************************************************************!*\
   !*** D:/CompcuteApplication/projectTest/uni-app/naixue-app/components/uni-swipe-action-item/mpwxs.js ***!
   \*******************************************************************************************************/
@@ -2038,68 +2100,6 @@ function normalizeComponent (
       }).
       exec();
     } } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-
-/***/ 11:
-/*!****************************************************************************!*\
-  !*** D:/CompcuteApplication/projectTest/uni-app/naixue-app/store/index.js ***!
-  \****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 12));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-_vue.default.use(_vuex.default);
-var store = new _vuex.default.Store({
-  state: {
-    isLogin: false,
-    orderType: 'takein',
-    userInfo: {},
-
-
-    choseAddress: {},
-    choseStore: {},
-    orderCurrent: {} },
-
-  mutations: {
-    //登录
-    Login: function Login(state, res) {
-      state.isLogin = true;
-      state.userInfo = res;
-      uni.setStorage({
-        key: 'userinfo',
-        data: res });
-
-    },
-
-    SET_ORDERTYPE: function SET_ORDERTYPE(state, type) {
-      state.orderType = type;
-    },
-
-
-    SET_ADDRESS: function SET_ADDRESS(state, address) {
-      state.choseAddress = address;
-    },
-
-    SET_STORE: function SET_STORE(state, store) {
-      state.choseStore = store;
-    },
-    SET_ORDERCURRENT: function SET_ORDERCURRENT(state, current) {
-      state.orderCurrent = current;
-    },
-    CHEAR_CURRENT: function CHEAR_CURRENT(state) {
-      state.orderCurrent = {};
-    },
-    SET_ORDERCURRENTSTATUS: function SET_ORDERCURRENTSTATUS(state, status) {
-      state.orderCurrent.status = status;
-    } },
-
-  actions: {} });var _default =
-
-store;exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
