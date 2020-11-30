@@ -130,7 +130,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -247,7 +247,37 @@ var _vuex = __webpack_require__(/*! vuex */ 12);function ownKeys(object, enumera
   onLoad: function onLoad() {
 
   },
-  methods: {} };exports.default = _default;
+  methods: {
+    //自取
+    takein: function takein() {
+      // 如果没有选中门店，就条咋混到门店让用户选则
+      // chooseStore是个对象
+      if (JSON.stringify(this.chooseStore) === "{}") {
+        uni.navigateTo({
+          url: '../stores/stores' });
+
+      }
+      //提交订单类型为“自取”，跳转到点餐页面
+      this.$store.commit('SET_ORDERTYPE', 'takein');
+      uni.switchTab({
+        url: '../menu/menu' });
+
+    },
+    //外卖
+    takeout: function takeout() {
+      //未登录跳转到登录页
+      if (!this.isLogin) {
+        uni.navigateTo({
+          url: '/pages/login/login' });
+
+      } else {
+        //已登录，跳转到地址选择页面
+        uni.navigateTo({
+          url: '/pages/address/address?is_choose=true' });
+
+      }
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
